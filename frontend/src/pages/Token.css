@@ -1,0 +1,203 @@
+.token-page {
+  min-height: 100vh;
+  padding: 2rem 0;
+  background-color: #f9f9f9;
+}
+
+.selected-poojas-summary {
+  background: white;
+  padding: 2rem;
+  margin-bottom: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.selected-poojas-summary h3 {
+  margin-bottom: 1rem;
+  color: #333;
+}
+
+.summary-item {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.75rem;
+  margin-bottom: 0.5rem;
+  background: #f0f0f0;
+  border-radius: 4px;
+}
+
+.summary-total {
+  padding: 1rem;
+  background: #e8f5e9;
+  border-radius: 4px;
+  margin-top: 1rem;
+  text-align: center;
+  font-size: 1.2rem;
+  color: #2e7d32;
+}
+
+.field-error {
+  display: block;
+  color: #dc3545;
+  font-size: 0.85rem;
+  margin-top: 0.25rem;
+}
+
+.token-form {
+  background: white;
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+.token-success {
+  text-align: center;
+}
+
+.token-success h1 {
+  color: #4CAF50;
+  margin-bottom: 2rem;
+}
+
+.token-card {
+  background: white;
+  padding: 3rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.token-header {
+  text-align: center;
+  margin-bottom: 2rem;
+  padding-bottom: 1rem;
+  border-bottom: 2px solid #e0e0e0;
+}
+
+.token-header h2 {
+  color: #666;
+  font-size: 1rem;
+  margin-bottom: 0.5rem;
+}
+
+.token-number {
+  font-size: 2.5rem;
+  font-weight: bold;
+  color: #4CAF50;
+  letter-spacing: 2px;
+}
+
+.token-details {
+  margin-bottom: 2rem;
+}
+
+.detail-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.75rem;
+  margin-bottom: 0.5rem;
+  background: #f9f9f9;
+  border-radius: 4px;
+}
+
+.detail-row .label {
+  font-weight: bold;
+  color: #666;
+}
+
+.amount {
+  font-size: 1.3rem;
+  font-weight: bold;
+  color: #4CAF50;
+}
+
+.poojas-list {
+  margin-bottom: 2rem;
+  padding: 1rem;
+  background: #f9f9f9;
+  border-radius: 8px;
+}
+
+.poojas-list h3 {
+  margin-bottom: 1rem;
+  color: #333;
+}
+
+.pooja-item {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.5rem;
+  margin-bottom: 0.5rem;
+  background: white;
+  border-radius: 4px;
+}
+
+.qr-code-section {
+  text-align: center;
+  margin-bottom: 2rem;
+  padding: 1.5rem;
+  background: #f9f9f9;
+  border-radius: 8px;
+}
+
+.qr-code-section h3 {
+  margin-bottom: 1rem;
+  color: #333;
+}
+
+.qr-code {
+  display: inline-block;
+  padding: 1rem;
+  background: white;
+  border-radius: 8px;
+}
+
+.instructions {
+  margin-bottom: 2rem;
+  padding: 1.5rem;
+  background: #fff3cd;
+  border-left: 4px solid #ffc107;
+  border-radius: 4px;
+}
+
+.instructions h3 {
+  margin-bottom: 1rem;
+  color: #856404;
+}
+
+.instructions ul {
+  list-style: none;
+  padding: 0;
+}
+
+.instructions li {
+  padding: 0.5rem 0;
+  color: #856404;
+}
+
+.instructions li:before {
+  content: "✓ ";
+  color: #4CAF50;
+  font-weight: bold;
+  margin-right: 0.5rem;
+}
+
+.token-actions {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+}
+
+@media print {
+  .token-actions {
+    display: none;
+  }
+  
+  .navbar {
+    display: none;
+  }
+}
+

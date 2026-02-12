@@ -1,0 +1,92 @@
+.image-upload-container {
+  margin-bottom: 1.5rem;
+}
+
+.image-upload-container label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: bold;
+  color: #333;
+}
+
+.image-upload-options {
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  padding: 1rem;
+  background: #f9f9f9;
+}
+
+.upload-tabs {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.upload-tabs .tab {
+  padding: 0.5rem 1rem;
+  border: 1px solid #ddd;
+  background: white;
+  cursor: pointer;
+  border-radius: 4px 4px 0 0;
+  transition: all 0.3s;
+}
+
+.upload-tabs .tab:hover {
+  background: #f0f0f0;
+}
+
+.upload-tabs .tab.active {
+  background: #667eea;
+  color: white;
+  border-color: #667eea;
+}
+
+.upload-section,
+.url-section {
+  margin-bottom: 1rem;
+}
+
+.file-input {
+  width: 100%;
+  padding: 0.5rem;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  background: white;
+}
+
+.url-input {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 1rem;
+}
+
+.upload-status {
+  margin-top: 0.5rem;
+  color: #667eea;
+  font-style: italic;
+}
+
+.image-preview {
+  margin-top: 1rem;
+  text-align: center;
+  padding: 1rem;
+  background: white;
+  border-radius: 4px;
+  border: 1px solid #ddd;
+}
+
+.image-preview img {
+  max-width: 100%;
+  max-height: 200px;
+  border-radius: 4px;
+  margin-bottom: 0.5rem;
+}
+
+.preview-note {
+  font-size: 0.85rem;
+  color: #666;
+  margin: 0;
+}
+

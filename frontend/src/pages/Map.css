@@ -1,0 +1,59 @@
+.map-page {
+  min-height: 100vh;
+  padding: 2rem 0;
+  background-color: #f9f9f9;
+}
+
+.address-section,
+.directions-section,
+.inside-map-section {
+  background: white;
+  padding: 2rem;
+  margin-bottom: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.address-section h2,
+.directions-section h2,
+.inside-map-section h2 {
+  color: #667eea;
+  margin-bottom: 1rem;
+  border-bottom: 2px solid #667eea;
+  padding-bottom: 0.5rem;
+}
+
+.map-container {
+  margin-bottom: 2rem;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.map-note {
+  padding: 1rem;
+  background: #fff3cd;
+  color: #856404;
+  margin-top: 0.5rem;
+  border-radius: 4px;
+  font-size: 0.9rem;
+}
+
+.map-placeholder {
+  background: white;
+  padding: 3rem;
+  text-align: center;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  color: #666;
+}
+
+.inside-map-image {
+  width: 100%;
+  max-width: 800px;
+  height: auto;
+  border-radius: 8px;
+  margin: 1rem 0;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+

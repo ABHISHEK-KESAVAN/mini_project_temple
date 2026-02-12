@@ -1,0 +1,245 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --primary-color: #667eea;
+  --secondary-color: #764ba2;
+  --accent-color: #4CAF50;
+  --text-color: #333333;
+  --background-color: #f5f5f5;
+  --background-image: none;
+  --glass-tint-color: rgba(255, 255, 255, 0.18);
+  --header-background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  --navbar-background: #1a1a1a;
+  --button-primary: #4CAF50;
+  --button-secondary: #2196F3;
+  --font-family: Georgia, "Times New Roman", serif;
+}
+
+body {
+  font-family: var(--font-family);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: var(--background-color, #f5f5f5);
+  background-image: var(--background-image);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  color: var(--text-color, #333333);
+}
+
+/* Theme cards: elements that get card-style and card-shape from admin */
+.theme-card,
+.home-block,
+.pooja-card,
+.announcement-card,
+.admin-form,
+.admin-form-card,
+.login-card,
+.gallery-item,
+.selected-poojas-summary,
+.token-form,
+.about-section,
+.highlight-card,
+.preview-box,
+.token-card,
+.menu-card,
+.stat-card {
+  transition: background 0.3s, box-shadow 0.3s, border-radius 0.3s, clip-path 0.3s;
+}
+
+/* Card style: glass */
+body[data-card-style="glass"] .theme-card,
+body[data-card-style="glass"] .home-block,
+body[data-card-style="glass"] .pooja-card,
+body[data-card-style="glass"] .announcement-card,
+body[data-card-style="glass"] .admin-form,
+body[data-card-style="glass"] .admin-form-card,
+body[data-card-style="glass"] .login-card,
+body[data-card-style="glass"] .gallery-item,
+body[data-card-style="glass"] .selected-poojas-summary,
+body[data-card-style="glass"] .token-form,
+body[data-card-style="glass"] .about-section,
+body[data-card-style="glass"] .highlight-card,
+body[data-card-style="glass"] .preview-box,
+body[data-card-style="glass"] .token-card,
+body[data-card-style="glass"] .menu-card,
+body[data-card-style="glass"] .stat-card {
+  background: var(--glass-tint-color, rgba(255, 255, 255, 0.18));
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  border: 1px solid rgba(255, 255, 255, 0.45);
+  box-shadow: 0 18px 45px rgba(0, 0, 0, 0.35);
+}
+
+/* Card style: metallic */
+body[data-card-style="metallic"] .theme-card,
+body[data-card-style="metallic"] .home-block,
+body[data-card-style="metallic"] .pooja-card,
+body[data-card-style="metallic"] .announcement-card,
+body[data-card-style="metallic"] .admin-form,
+body[data-card-style="metallic"] .admin-form-card,
+body[data-card-style="metallic"] .login-card,
+body[data-card-style="metallic"] .gallery-item,
+body[data-card-style="metallic"] .selected-poojas-summary,
+body[data-card-style="metallic"] .token-form,
+body[data-card-style="metallic"] .about-section,
+body[data-card-style="metallic"] .highlight-card,
+body[data-card-style="metallic"] .preview-box,
+body[data-card-style="metallic"] .token-card,
+body[data-card-style="metallic"] .menu-card,
+body[data-card-style="metallic"] .stat-card {
+  background: linear-gradient(145deg, #f0f0f0 0%, #e8e8e8 50%, #f5f5f5 100%);
+  border: 1px solid rgba(200, 200, 200, 0.8);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12), inset 0 1px 0 rgba(255, 255, 255, 0.6);
+}
+
+/* Card style: wood */
+body[data-card-style="wood"] .theme-card,
+body[data-card-style="wood"] .home-block,
+body[data-card-style="wood"] .pooja-card,
+body[data-card-style="wood"] .announcement-card,
+body[data-card-style="wood"] .admin-form,
+body[data-card-style="wood"] .admin-form-card,
+body[data-card-style="wood"] .login-card,
+body[data-card-style="wood"] .gallery-item,
+body[data-card-style="wood"] .selected-poojas-summary,
+body[data-card-style="wood"] .token-form,
+body[data-card-style="wood"] .about-section,
+body[data-card-style="wood"] .highlight-card,
+body[data-card-style="wood"] .preview-box,
+body[data-card-style="wood"] .token-card,
+body[data-card-style="wood"] .menu-card,
+body[data-card-style="wood"] .stat-card {
+  background: linear-gradient(135deg, #deb887 0%, #d2a56d 25%, #c19a6b 50%, #d2a56d 100%);
+  border: 1px solid #b8860b;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+  color: #2c1810;
+}
+
+body[data-card-style="wood"] .theme-card *,
+body[data-card-style="wood"] .home-block *,
+body[data-card-style="wood"] .admin-form *,
+body[data-card-style="wood"] .login-card *,
+body[data-card-style="wood"] .about-section *,
+body[data-card-style="wood"] .menu-card *,
+body[data-card-style="wood"] .stat-card * {
+  color: inherit;
+}
+
+/* Card shape: round-rectangle (default) */
+body[data-card-shape="round-rectangle"] .theme-card,
+body[data-card-shape="round-rectangle"] .home-block,
+body[data-card-shape="round-rectangle"] .pooja-card,
+body[data-card-shape="round-rectangle"] .announcement-card,
+body[data-card-shape="round-rectangle"] .admin-form,
+body[data-card-shape="round-rectangle"] .admin-form-card,
+body[data-card-shape="round-rectangle"] .login-card,
+body[data-card-shape="round-rectangle"] .gallery-item,
+body[data-card-shape="round-rectangle"] .selected-poojas-summary,
+body[data-card-shape="round-rectangle"] .token-form,
+body[data-card-shape="round-rectangle"] .about-section,
+body[data-card-shape="round-rectangle"] .highlight-card,
+body[data-card-shape="round-rectangle"] .preview-box,
+body[data-card-shape="round-rectangle"] .token-card,
+body[data-card-shape="round-rectangle"] .menu-card,
+body[data-card-shape="round-rectangle"] .stat-card {
+  border-radius: 12px;
+}
+
+/* Card shape: parallelogram */
+body[data-card-shape="parallelogram"] .theme-card,
+body[data-card-shape="parallelogram"] .home-block,
+body[data-card-shape="parallelogram"] .pooja-card,
+body[data-card-shape="parallelogram"] .announcement-card,
+body[data-card-shape="parallelogram"] .admin-form,
+body[data-card-shape="parallelogram"] .admin-form-card,
+body[data-card-shape="parallelogram"] .login-card,
+body[data-card-shape="parallelogram"] .gallery-item,
+body[data-card-shape="parallelogram"] .selected-poojas-summary,
+body[data-card-shape="parallelogram"] .token-form,
+body[data-card-shape="parallelogram"] .about-section,
+body[data-card-shape="parallelogram"] .highlight-card,
+body[data-card-shape="parallelogram"] .preview-box,
+body[data-card-shape="parallelogram"] .token-card,
+body[data-card-shape="parallelogram"] .menu-card,
+body[data-card-shape="parallelogram"] .stat-card {
+  border-radius: 0;
+  clip-path: polygon(12px 0, 100% 0, calc(100% - 12px) 100%, 0 100%);
+}
+
+/* Card shape: rectangle */
+body[data-card-shape="rectangle"] .theme-card,
+body[data-card-shape="rectangle"] .home-block,
+body[data-card-shape="rectangle"] .pooja-card,
+body[data-card-shape="rectangle"] .announcement-card,
+body[data-card-shape="rectangle"] .admin-form,
+body[data-card-shape="rectangle"] .admin-form-card,
+body[data-card-shape="rectangle"] .login-card,
+body[data-card-shape="rectangle"] .gallery-item,
+body[data-card-shape="rectangle"] .selected-poojas-summary,
+body[data-card-shape="rectangle"] .token-form,
+body[data-card-shape="rectangle"] .about-section,
+body[data-card-shape="rectangle"] .highlight-card,
+body[data-card-shape="rectangle"] .preview-box,
+body[data-card-shape="rectangle"] .token-card,
+body[data-card-shape="rectangle"] .menu-card,
+body[data-card-shape="rectangle"] .stat-card {
+  border-radius: 0;
+}
+
+/* Card shape: square (sharp corners, no radius) */
+body[data-card-shape="square"] .theme-card,
+body[data-card-shape="square"] .home-block,
+body[data-card-shape="square"] .pooja-card,
+body[data-card-shape="square"] .announcement-card,
+body[data-card-shape="square"] .admin-form,
+body[data-card-shape="square"] .admin-form-card,
+body[data-card-shape="square"] .login-card,
+body[data-card-shape="square"] .gallery-item,
+body[data-card-shape="square"] .selected-poojas-summary,
+body[data-card-shape="square"] .token-form,
+body[data-card-shape="square"] .about-section,
+body[data-card-shape="square"] .highlight-card,
+body[data-card-shape="square"] .preview-box,
+body[data-card-shape="square"] .token-card,
+body[data-card-shape="square"] .menu-card,
+body[data-card-shape="square"] .stat-card {
+  border-radius: 0;
+}
+
+/* Card shape: pill (capsule) */
+body[data-card-shape="pill"] .theme-card,
+body[data-card-shape="pill"] .home-block,
+body[data-card-shape="pill"] .pooja-card,
+body[data-card-shape="pill"] .announcement-card,
+body[data-card-shape="pill"] .admin-form,
+body[data-card-shape="pill"] .admin-form-card,
+body[data-card-shape="pill"] .login-card,
+body[data-card-shape="pill"] .gallery-item,
+body[data-card-shape="pill"] .selected-poojas-summary,
+body[data-card-shape="pill"] .token-form,
+body[data-card-shape="pill"] .about-section,
+body[data-card-shape="pill"] .highlight-card,
+body[data-card-shape="pill"] .preview-box,
+body[data-card-shape="pill"] .token-card,
+body[data-card-shape="pill"] .menu-card,
+body[data-card-shape="pill"] .stat-card {
+  border-radius: 999px;
+}
+
+/* Circle: only for elements that are already square (e.g. small cards); larger cards keep round-rectangle if circle would clip too much */
+body[data-card-shape="circle"] .stat-card,
+body[data-card-shape="circle"] .menu-card {
+  border-radius: 50%;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
