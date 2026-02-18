@@ -113,3 +113,58 @@
   font-size: 1.1rem;
 }
 
+/* Mobile Responsive */
+@media (max-width: 768px) {
+  .poojas-page {
+    padding: 1rem 0;
+  }
+
+  .selected-summary {
+    position: relative;
+    top: 0;
+    padding: 1rem;
+    margin-bottom: 1rem;
+  }
+
+  .selected-summary h3 {
+    font-size: 1.1rem;
+  }
+
+  .total-amount {
+    font-size: 1rem;
+    padding: 0.75rem;
+  }
+
+  .poojas-grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  .pooja-content {
+    padding: 1rem;
+  }
+
+  .pooja-content h3 {
+    font-size: 1.1rem;
+  }
+
+  .pooja-image {
+    height: 180px;
+  }
+}
+
+@media (max-width: 480px) {
+  .poojas-page {
+    padding: 0.5rem 0;
+  }
+
+  .selected-summary,
+  .pooja-content {
+    padding: 0.75rem;
+  }
+
+  .pooja-image {
+    height: 150px;
+  }
+}
+

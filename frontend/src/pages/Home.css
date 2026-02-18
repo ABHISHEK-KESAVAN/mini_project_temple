@@ -1,25 +1,9 @@
-/* Home – design from API (theme vars); simple and modern */
+/* Home page – modern layout: Hero → About → Gallery → Poojas → Announcements */
 
 .home-page {
   min-height: 100vh;
-  background-color: var(--background-color);
-  color: var(--text-color);
-  position: relative;
-  overflow: hidden;
-}
-
-.home-page::before {
-  content: '';
-  position: fixed;
-  inset: -20%;
-  background:
-    radial-gradient(circle at 0% 0%, rgba(248, 250, 252, 0.08), transparent 55%),
-    radial-gradient(circle at 100% 0%, rgba(250, 250, 250, 0.05), transparent 55%),
-    radial-gradient(circle at 0% 100%, rgba(15, 23, 42, 0.8), transparent 60%);
-  mix-blend-mode: soft-light;
-  opacity: 0.9;
-  pointer-events: none;
-  z-index: -1;
+  background-color: var(--background-color, #f5f5f5);
+  color: var(--text-color, #333);
 }
 
 .container {
@@ -28,294 +12,135 @@
   padding: 0 1.25rem;
 }
 
-/* Header – API: temple name, logo */
-.temple-header {
-  padding: 1.5rem 0;
-  background: var(--header-background);
-  color: white;
-  text-align: center;
-  position: relative;
-  overflow: hidden;
-  transform: translate3d(0, calc(var(--header-parallax-offset, 0px) * -0.6), 0);
-  will-change: transform;
-}
-
-.temple-header::before {
-  content: '';
-  position: absolute;
-  inset: -40%;
-  background:
-    radial-gradient(circle at 0% 0%, rgba(255, 255, 255, 0.12), transparent 55%),
-    radial-gradient(circle at 100% 0%, rgba(255, 255, 255, 0.18), transparent 60%),
-    radial-gradient(circle at 0% 100%, rgba(0, 0, 0, 0.18), transparent 60%);
-  opacity: 0.9;
-  mix-blend-mode: screen;
-  transform: translate3d(0, 0, 0);
-  animation: temple-glow 18s ease-in-out infinite alternate;
-  pointer-events: none;
-}
-
-.temple-header-content {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 1rem;
-  flex-wrap: wrap;
-}
-
-.temple-logo {
-  width: 64px;
-  height: 64px;
-  border-radius: 50%;
-  object-fit: cover;
-}
-
-.temple-name {
-  margin: 0;
-  font-size: clamp(1.5rem, 4vw, 2.25rem);
-  font-weight: 700;
-  text-shadow: 0 10px 35px rgba(0, 0, 0, 0.4);
-}
-
-/* Slider – same aspect ratio for all slides; click → Gallery */
-.banner-slider {
-  position: relative;
-  width: 100%;
-  overflow: hidden;
-  background: var(--primary-color);
-  aspect-ratio: var(--banner-aspect, 16/9);
-  transform: translate3d(0, calc(var(--header-parallax-offset, 0px) * -0.3), 0);
-  will-change: transform;
-}
-
-.slider-track {
-  position: absolute;
-  inset: 0;
-  display: flex;
-  transition: transform 0.4s ease;
-}
-
-.slide {
-  flex: 0 0 100%;
-  position: relative;
-  display: block;
-  text-decoration: none;
-  color: inherit;
-}
-
-.slide img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  display: block;
-}
-
-.slide-placeholder {
-  position: absolute;
-  inset: 0;
-  display: none;
-  align-items: center;
-  justify-content: center;
-  background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
-  color: white;
-  font-size: 1.25rem;
-}
-
-.slide-placeholder.show {
-  display: flex;
-}
-
-.slide-content {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  padding: 1.25rem 1.5rem;
-  background: linear-gradient(transparent, rgba(0,0,0,0.75));
-  color: white;
-}
-
-.slide-content h2 {
-  margin: 0 0 0.25rem 0;
-  font-size: 1.25rem;
-}
-
-.slide-content p {
-  margin: 0;
-  font-size: 0.95rem;
-  opacity: 0.95;
-}
-
-.slide-cta {
-  display: inline-block;
-  margin-top: 0.5rem;
-  font-size: 0.9rem;
-  font-weight: 600;
-}
-
-.placeholder-banner {
-  position: absolute;
-  inset: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
-  color: white;
-  font-size: 1.1rem;
-  text-decoration: none;
-}
-
-.slider-dots {
-  position: absolute;
-  bottom: 1rem;
-  left: 50%;
-  transform: translateX(-50%);
-  display: flex;
-  gap: 0.5rem;
-}
-
-.slider-dots .dot {
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
-  border: 2px solid white;
-  background: transparent;
-  cursor: pointer;
-  padding: 0;
-  transition: background 0.2s;
-}
-
-.slider-dots .dot.active {
-  background: white;
-}
-
-/* Main content */
 .home-main {
-  padding: 2rem 0;
+  padding: 2.5rem 0 3rem;
 }
 
-.welcome-section {
+.section-title {
+  margin: 0 0 1.5rem 0;
+  font-size: 1.75rem;
+  color: var(--primary-color);
   text-align: center;
-  margin-bottom: 2rem;
 }
 
-.welcome-text {
-  font-size: 1.1rem;
-  color: var(--text-color);
-  max-width: 720px;
-  margin: 0 auto;
-  line-height: 1.6;
+/* ----- Hero Welcome Section ----- */
+.hero-section {
   position: relative;
+  width: 100%;
+  min-height: 70vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
 }
 
-.welcome-text::before {
-  content: 'ॐ';
+.hero-bg {
   position: absolute;
-  top: -2.5rem;
-  left: 50%;
-  transform: translateX(-50%);
-  font-size: 2rem;
-  color: var(--accent-color, #f59e0b);
-  text-shadow:
-    0 0 12px rgba(249, 250, 251, 0.9),
-    0 0 24px rgba(250, 204, 21, 0.95);
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  background-color: var(--primary-color);
 }
 
-/* Two blocks: Poojas + About */
-.home-blocks {
+.hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0.3) 0%,
+    rgba(0, 0, 0, 0.5) 50%,
+    rgba(0, 0, 0, 0.7) 100%
+  );
+}
+
+.hero-content {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+  color: white;
+  padding: 2rem 1rem;
+}
+
+.hero-title {
+  margin: 0 0 1rem 0;
+  font-size: clamp(2rem, 5vw, 3.25rem);
+  font-weight: 700;
+  text-shadow: 0 2px 20px rgba(0, 0, 0, 0.5);
+  line-height: 1.2;
+}
+
+.hero-message {
+  margin: 0 0 1.5rem 0;
+  max-width: 640px;
+  margin-left: auto;
+  margin-right: auto;
+  font-size: clamp(1rem, 2vw, 1.2rem);
+  line-height: 1.6;
+  opacity: 0.95;
+  text-shadow: 0 1px 8px rgba(0, 0, 0, 0.4);
+}
+
+.hero-cta {
+  display: inline-block;
+  padding: 0.875rem 2rem;
+  background: var(--button-primary, #4CAF50);
+  color: white;
+  text-decoration: none;
+  font-weight: 600;
+  border-radius: 8px;
+  transition: transform 0.2s, box-shadow 0.2s;
+  border: none;
+  cursor: pointer;
+  font-size: 1rem;
+}
+
+.hero-cta:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+}
+
+/* ----- About Us Section ----- */
+.about-section {
+  margin-bottom: 3rem;
+}
+
+.about-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 2rem;
-  margin-bottom: 2rem;
+  gap: 2.5rem;
+  align-items: center;
 }
 
-@media (max-width: 768px) {
-  .home-blocks {
-    grid-template-columns: 1fr;
-  }
-}
-
-.home-block {
-  background: white;
+.about-image-wrap {
   border-radius: 12px;
-  padding: 1.5rem;
-  box-shadow: 0 2px 12px rgba(0,0,0,0.06);
-}
-
-.block-title {
-  margin: 0 0 1rem 0;
-  font-size: 1.35rem;
-  color: var(--primary-color);
-}
-
-.block-empty {
-  color: var(--text-color);
-  opacity: 0.8;
-  margin-bottom: 1rem;
-}
-
-/* Pooja cards on home – same aspect ratio for images */
-.pooja-cards {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
-  gap: 1rem;
-  margin-bottom: 1rem;
-}
-
-.pooja-card {
-  display: block;
-  text-decoration: none;
-  color: var(--text-color);
-  background: var(--background-color);
-  border-radius: 8px;
   overflow: hidden;
-  transform-style: preserve-3d;
-  transition: transform 0.25s ease, box-shadow 0.25s ease;
-}
-
-.pooja-card:hover {
-  transform: translate3d(0, -4px, 0) rotate3d(1, 1, 0, 6deg);
-  box-shadow: 0 18px 40px rgba(0,0,0,0.3);
-}
-
-.pooja-card-img {
-  width: 100%;
-  aspect-ratio: var(--card-aspect, 16/9);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  aspect-ratio: 4/3;
   background: var(--primary-color);
-  overflow: hidden;
 }
 
-.pooja-card-img img {
+.about-image {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  display: block;
 }
 
-.pooja-card-body {
-  padding: 0.75rem;
+.about-image-placeholder {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 1.1rem;
 }
 
-.pooja-card-body h3 {
-  margin: 0 0 0.25rem 0;
-  font-size: 1rem;
-}
-
-.pooja-timing {
-  margin: 0;
-  font-size: 0.8rem;
-  opacity: 0.85;
-}
-
-.pooja-price {
-  margin: 0.25rem 0 0 0;
-  font-weight: 700;
-  color: var(--accent-color);
-}
-
-.about-teaser {
+.about-text .about-content {
   margin: 0 0 1rem 0;
-  font-size: 1rem;
-  line-height: 1.6;
+  font-size: 1.05rem;
+  line-height: 1.7;
   color: var(--text-color);
 }
 
@@ -331,7 +156,160 @@
   text-decoration: underline;
 }
 
-/* Announcements */
+.see-more-center {
+  display: inline-block;
+  margin-top: 1rem;
+  text-align: center;
+  width: 100%;
+}
+
+/* ----- Gallery Section (Home) ----- */
+.gallery-section {
+  margin-bottom: 3rem;
+}
+
+.home-gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 1.25rem;
+}
+
+.home-gallery-item {
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+  transition: transform 0.25s, box-shadow 0.25s;
+  background: #fff;
+}
+
+.home-gallery-item:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.15);
+}
+
+.home-gallery-inner {
+  position: relative;
+  width: 100%;
+  aspect-ratio: var(--gallery-aspect, 16/9);
+  background: var(--primary-color);
+  overflow: hidden;
+}
+
+.home-gallery-inner img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.home-gallery-placeholder {
+  position: absolute;
+  inset: 0;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+  color: white;
+  font-size: 0.95rem;
+}
+
+.home-gallery-placeholder.show {
+  display: flex;
+}
+
+.home-gallery-caption {
+  padding: 0.75rem 1rem;
+  font-size: 0.9rem;
+  color: var(--text-color);
+}
+
+.home-gallery-caption strong {
+  display: block;
+  margin-bottom: 0.25rem;
+}
+
+/* ----- Top 3 Poojas Preview ----- */
+.poojas-preview-section {
+  margin-bottom: 3rem;
+}
+
+.poojas-preview-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.pooja-preview-card {
+  display: block;
+  text-decoration: none;
+  color: var(--text-color);
+  background: #fff;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+  transition: transform 0.25s, box-shadow 0.25s;
+}
+
+.pooja-preview-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.12);
+}
+
+.pooja-preview-img {
+  width: 100%;
+  aspect-ratio: var(--card-aspect, 16/9);
+  background: var(--primary-color);
+  overflow: hidden;
+}
+
+.pooja-preview-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.pooja-preview-body {
+  padding: 1rem 1.25rem;
+}
+
+.pooja-preview-body h3 {
+  margin: 0 0 0.35rem 0;
+  font-size: 1.15rem;
+  color: var(--primary-color);
+}
+
+.pooja-preview-timing {
+  margin: 0;
+  font-size: 0.9rem;
+  opacity: 0.9;
+}
+
+.pooja-preview-price {
+  margin: 0.35rem 0 0 0;
+  font-weight: 700;
+  color: var(--accent-color);
+  font-size: 1.05rem;
+}
+
+.poojas-preview-actions {
+  text-align: center;
+}
+
+.poojas-preview-actions .btn {
+  padding: 0.75rem 1.75rem;
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.block-empty {
+  color: var(--text-color);
+  opacity: 0.85;
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+/* ----- Announcements ----- */
 .announcements-section {
   margin-bottom: 2rem;
 }
@@ -343,8 +321,8 @@
 }
 
 .announcement-card {
-  padding: 1.25rem;
-  border-radius: 8px;
+  padding: 1.25rem 1.5rem;
+  border-radius: 10px;
   border-left: 4px solid var(--accent-color);
   background: rgba(76, 175, 80, 0.08);
 }
@@ -363,42 +341,67 @@
   opacity: 0.9;
 }
 
-/* Quick actions */
-.quick-actions {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 1rem;
-  justify-content: center;
-}
-
-.quick-btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-  padding: 0.75rem 1.25rem;
-  background: var(--button-primary);
-  color: white;
-  text-decoration: none;
-  border-radius: 8px;
-  font-weight: 600;
-  transform-style: preserve-3d;
-  transition: opacity 0.2s, transform 0.25s ease, box-shadow 0.25s ease;
-}
-
-.quick-btn:hover {
-  opacity: 0.95;
-  transform: translate3d(0, -2px, 0) rotate3d(1, 1, 0, 5deg);
-  box-shadow: 0 16px 36px rgba(0,0,0,0.25);
-}
-
-@keyframes temple-glow {
-  0% {
-    transform: translate3d(-6%, -4%, 0) rotate(0deg);
+/* ----- Responsive ----- */
+@media (max-width: 768px) {
+  .hero-section {
+    min-height: 60vh;
   }
-  50% {
-    transform: translate3d(4%, 3%, 0) rotate(4deg);
+
+  .hero-content {
+    padding: 1.5rem 1rem;
   }
-  100% {
-    transform: translate3d(8%, -3%, 0) rotate(-3deg);
+
+  .home-main {
+    padding: 1.5rem 0 2rem;
+  }
+
+  .about-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  .about-image-wrap {
+    max-height: 280px;
+    aspect-ratio: 16/10;
+  }
+
+  .section-title {
+    font-size: 1.5rem;
+    margin-bottom: 1.25rem;
+  }
+
+  .home-gallery-grid {
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 1rem;
+  }
+
+  .poojas-preview-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 480px) {
+  .container {
+    padding: 0 1rem;
+  }
+
+  .hero-section {
+    min-height: 55vh;
+  }
+
+  .hero-title {
+    font-size: 1.75rem;
+  }
+
+  .hero-message {
+    font-size: 0.95rem;
+  }
+
+  .home-gallery-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .announcement-card {
+    padding: 1rem;
   }
 }

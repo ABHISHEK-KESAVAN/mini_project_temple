@@ -121,6 +121,11 @@ const AdminDashboard = () => {
               <h3>Manage Contact</h3>
               <p>Update contact information</p>
             </Link>
+            <Link to="/admin/footer" className="menu-card">
+              <div className="menu-icon">📄</div>
+              <h3>Manage Footer</h3>
+              <p>Update footer content and links</p>
+            </Link>
             <Link to="/admin/theme" className="menu-card">
               <div className="menu-icon">🎨</div>
               <h3>Manage Theme & Colors</h3>

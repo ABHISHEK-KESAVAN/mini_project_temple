@@ -2,6 +2,7 @@ import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { ThemeProvider } from './components/ThemeProvider';
 import Navbar from './components/Navbar';
+import Footer from './components/Footer';
 import Home from './pages/Home';
 import About from './pages/About';
 import Poojas from './pages/Poojas';
@@ -17,6 +18,7 @@ import ManageTokens from './pages/admin/ManageTokens';
 import ManageMap from './pages/admin/ManageMap';
 import ManageAbout from './pages/admin/ManageAbout';
 import ManageContact from './pages/admin/ManageContact';
+import ManageFooter from './pages/admin/ManageFooter';
 import ManageTheme from './pages/admin/ManageTheme';
 import ManageTokenSettings from './pages/admin/ManageTokenSettings';
 import PrivateRoute from './components/PrivateRoute';
@@ -28,13 +30,13 @@ function App() {
       <Router>
       <Routes>
         {/* Public Routes */}
-        <Route path="/" element={<><Navbar /><Home /></>} />
-        <Route path="/about" element={<><Navbar /><About /></>} />
-        <Route path="/poojas" element={<><Navbar /><Poojas /></>} />
-        <Route path="/token" element={<><Navbar /><Token /></>} />
-        <Route path="/map" element={<><Navbar /><Map /></>} />
-        <Route path="/contact" element={<><Navbar /><Contact /></>} />
-        <Route path="/gallery" element={<><Navbar /><Gallery /></>} />
+        <Route path="/" element={<><Navbar /><Home /><Footer /></>} />
+        <Route path="/about" element={<><Navbar /><About /><Footer /></>} />
+        <Route path="/poojas" element={<><Navbar /><Poojas /><Footer /></>} />
+        <Route path="/token" element={<><Navbar /><Token /><Footer /></>} />
+        <Route path="/map" element={<><Navbar /><Map /><Footer /></>} />
+        <Route path="/contact" element={<><Navbar /><Contact /><Footer /></>} />
+        <Route path="/gallery" element={<><Navbar /><Gallery /><Footer /></>} />
         
         {/* Admin Routes */}
         <Route path="/admin/login" element={<AdminLogin />} />
@@ -46,6 +48,7 @@ function App() {
         <Route path="/admin/map" element={<PrivateRoute><ManageMap /></PrivateRoute>} />
         <Route path="/admin/about" element={<PrivateRoute><ManageAbout /></PrivateRoute>} />
         <Route path="/admin/contact" element={<PrivateRoute><ManageContact /></PrivateRoute>} />
+        <Route path="/admin/footer" element={<PrivateRoute><ManageFooter /></PrivateRoute>} />
         <Route path="/admin/theme" element={<PrivateRoute><ManageTheme /></PrivateRoute>} />
       </Routes>
       </Router>

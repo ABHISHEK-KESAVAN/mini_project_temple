@@ -59,3 +59,62 @@
   font-size: 1.1rem;
 }
 
+/* Mobile Responsive */
+@media (max-width: 768px) {
+  .contact-page {
+    padding: 1rem 0;
+  }
+
+  .contact-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+  }
+
+  .contact-card {
+    padding: 1.5rem;
+  }
+
+  .contact-icon {
+    font-size: 2.5rem;
+  }
+
+  .help-section {
+    padding: 1.5rem;
+  }
+
+  .help-section h2 {
+    font-size: 1.3rem;
+  }
+
+  .help-content {
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .contact-page {
+    padding: 0.5rem 0;
+  }
+
+  .contact-card {
+    padding: 1rem;
+  }
+
+  .contact-icon {
+    font-size: 2rem;
+  }
+
+  .help-section {
+    padding: 1rem;
+  }
+
+  .help-section h2 {
+    font-size: 1.1rem;
+  }
+
+  .help-content {
+    font-size: 0.95rem;
+  }
+}
+

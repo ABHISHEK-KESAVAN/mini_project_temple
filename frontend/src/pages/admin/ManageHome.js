@@ -11,6 +11,11 @@ const ManageHome = () => {
     welcomeMessage: '',
     bannerAspectRatio: '16/9',
     aboutTeaser: '',
+    aboutImage: '',
+    heroImage: '',
+    heroWelcomeTitle: '',
+    heroCtaText: 'View Poojas',
+    heroCtaLink: '/poojas',
     banners: [],
     announcements: [],
     highlightCards: []
@@ -139,7 +144,7 @@ const ManageHome = () => {
 
         <form onSubmit={handleSubmit} className="admin-form">
           <div className="form-section">
-            <h2>Basic Information</h2>
+            <h2>Basic Information & Navbar</h2>
             <div className="form-group">
               <label>Temple Name</label>
               <input
@@ -147,27 +152,88 @@ const ManageHome = () => {
                 name="templeName"
                 value={content.templeName}
                 onChange={handleChange}
+                placeholder="Shown in navbar and hero"
               />
             </div>
             <ImageUpload
-              label="Temple Logo"
+              label="Temple Logo (Navbar left)"
               value={content.templeLogo}
               onChange={(url) => setContent({ ...content, templeLogo: url })}
             />
+          </div>
+
+          <div className="form-section">
+            <h2>Hero Welcome Section</h2>
+            <p className="form-hint">Full-width section at top of Home. Background image, title, message, and CTA button.</p>
+            <ImageUpload
+              label="Hero background image"
+              value={content.heroImage || ''}
+              onChange={(url) => setContent({ ...content, heroImage: url })}
+            />
             <div className="form-group">
-              <label>Welcome Message</label>
+              <label>Hero welcome title</label>
+              <input
+                type="text"
+                name="heroWelcomeTitle"
+                value={content.heroWelcomeTitle || ''}
+                onChange={handleChange}
+                placeholder="e.g. Welcome to Sri Temple"
+              />
+            </div>
+            <div className="form-group">
+              <label>Welcome message (hero description)</label>
               <textarea
                 name="welcomeMessage"
                 value={content.welcomeMessage}
                 onChange={handleChange}
                 rows="4"
+                placeholder="Short welcome text overlayed on hero image"
+              />
+            </div>
+            <div className="form-group">
+              <label>CTA button text</label>
+              <input
+                type="text"
+                name="heroCtaText"
+                value={content.heroCtaText || 'View Poojas'}
+                onChange={handleChange}
+                placeholder="e.g. View Poojas or Generate Token"
+              />
+            </div>
+            <div className="form-group">
+              <label>CTA button link</label>
+              <input
+                type="text"
+                name="heroCtaLink"
+                value={content.heroCtaLink || '/poojas'}
+                onChange={handleChange}
+                placeholder="/poojas or /token"
               />
             </div>
           </div>
 
           <div className="form-section">
-            <h2>Image ratio (Slider & Gallery)</h2>
-            <p className="form-hint">All banner images use the same ratio on the home slider and gallery page. Choose one ratio for a consistent look.</p>
+            <h2>About Us Section (Home)</h2>
+            <p className="form-hint">Two-column block: image left, text right. &quot;See more About&quot; links to the full About page.</p>
+            <ImageUpload
+              label="About section image"
+              value={content.aboutImage || ''}
+              onChange={(url) => setContent({ ...content, aboutImage: url })}
+            />
+            <div className="form-group">
+              <label>About teaser text</label>
+              <textarea
+                name="aboutTeaser"
+                value={content.aboutTeaser || ''}
+                onChange={handleChange}
+                rows="4"
+                placeholder="Brief intro about the temple..."
+              />
+            </div>
+          </div>
+
+          <div className="form-section">
+            <h2>Image ratio (Gallery & Pooja cards)</h2>
             <div className="form-group">
               <label>Aspect ratio</label>
               <select
@@ -184,23 +250,8 @@ const ManageHome = () => {
           </div>
 
           <div className="form-section">
-            <h2>About teaser (Home page)</h2>
-            <p className="form-hint">Short text shown on the home page. &quot;See more About&quot; links to the full About page.</p>
-            <div className="form-group">
-              <label>About teaser text</label>
-              <textarea
-                name="aboutTeaser"
-                value={content.aboutTeaser || ''}
-                onChange={handleChange}
-                rows="3"
-                placeholder="A brief intro about the temple..."
-              />
-            </div>
-          </div>
-
-          <div className="form-section">
-            <h2>Banners (Slider & Gallery)</h2>
-            <p className="form-hint">These images appear in the home slider. Clicking a slide takes visitors to the Gallery. Same ratio above applies to all.</p>
+            <h2>Gallery Images</h2>
+            <p className="form-hint">These images appear in the Home gallery section and on the Gallery page.</p>
             {content.banners.map((banner, index) => (
               <div key={index} className="array-item">
                 <ImageUpload

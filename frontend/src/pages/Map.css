@@ -57,3 +57,54 @@
   box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
 
+/* Mobile Responsive */
+@media (max-width: 768px) {
+  .map-page {
+    padding: 1rem 0;
+  }
+
+  .address-section,
+  .directions-section,
+  .inside-map-section {
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .address-section h2,
+  .directions-section h2,
+  .inside-map-section h2 {
+    font-size: 1.3rem;
+  }
+
+  .map-container {
+    margin-bottom: 1rem;
+  }
+
+  .map-placeholder {
+    padding: 2rem 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .map-page {
+    padding: 0.5rem 0;
+  }
+
+  .address-section,
+  .directions-section,
+  .inside-map-section {
+    padding: 1rem;
+    margin-bottom: 1rem;
+  }
+
+  .address-section h2,
+  .directions-section h2,
+  .inside-map-section h2 {
+    font-size: 1.1rem;
+  }
+
+  .map-placeholder {
+    padding: 1.5rem 0.75rem;
+  }
+}
+

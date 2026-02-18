@@ -1,13 +1,13 @@
 .token-page {
   min-height: 100vh;
-  padding: 2rem 0;
+  padding: 1rem 0;
   background-color: #f9f9f9;
 }
 
 .selected-poojas-summary {
   background: white;
-  padding: 2rem;
-  margin-bottom: 2rem;
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
   border-radius: 8px;
   box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
@@ -15,6 +15,7 @@
 .selected-poojas-summary h3 {
   margin-bottom: 1rem;
   color: #333;
+  font-size: 1.2rem;
 }
 
 .summary-item {
@@ -24,6 +25,7 @@
   margin-bottom: 0.5rem;
   background: #f0f0f0;
   border-radius: 4px;
+  font-size: 0.95rem;
 }
 
 .summary-total {
@@ -32,24 +34,103 @@
   border-radius: 4px;
   margin-top: 1rem;
   text-align: center;
-  font-size: 1.2rem;
+  font-size: 1.1rem;
   color: #2e7d32;
 }
 
+/* Validation feedback styles */
 .field-error {
   display: block;
   color: #dc3545;
   font-size: 0.85rem;
   margin-top: 0.25rem;
+  font-weight: 500;
+}
+
+.field-success {
+  display: block;
+  color: #4CAF50;
+  font-size: 0.85rem;
+  margin-top: 0.25rem;
+  font-weight: 500;
+}
+
+.field-hint {
+  display: block;
+  color: #666;
+  font-size: 0.8rem;
+  margin-top: 0.25rem;
 }
 
 .token-form {
   background: white;
-  padding: 2rem;
+  padding: 1.5rem;
   border-radius: 8px;
   box-shadow: 0 2px 4px rgba(0,0,0,0.1);
   max-width: 500px;
   margin: 0 auto;
+  width: 100%;
+}
+
+.token-form .form-group {
+  margin-bottom: 1.25rem;
+}
+
+.token-form .form-group label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+  color: #333;
+  font-size: 0.95rem;
+}
+
+.token-form .form-group input {
+  width: 100%;
+  padding: 0.75rem;
+  border: 2px solid #ddd;
+  border-radius: 6px;
+  font-size: 16px; /* Prevents zoom on iOS */
+  transition: all 0.3s ease;
+  background-color: #fff;
+}
+
+.token-form .form-group input:focus {
+  outline: none;
+  border-color: var(--primary-color, #667eea);
+  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
+.token-form .form-group input.input-error {
+  border-color: #dc3545;
+  background-color: #fff5f5;
+}
+
+.token-form .form-group input.input-error:focus {
+  border-color: #dc3545;
+  box-shadow: 0 0 0 3px rgba(220, 53, 69, 0.1);
+}
+
+.token-form .form-group input.input-valid {
+  border-color: #4CAF50;
+  background-color: #f0f9f0;
+}
+
+.token-form .form-group input.input-valid:focus {
+  border-color: #4CAF50;
+  box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.1);
+}
+
+.token-form .btn {
+  width: 100%;
+  padding: 0.875rem 1.5rem;
+  font-size: 1rem;
+  font-weight: 600;
+  margin-top: 0.5rem;
+}
+
+.token-form .btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
 }
 
 .token-success {
@@ -58,64 +139,79 @@
 
 .token-success h1 {
   color: #4CAF50;
-  margin-bottom: 2rem;
+  margin-bottom: 1.5rem;
+  font-size: 1.5rem;
 }
 
 .token-card {
   background: white;
-  padding: 3rem;
+  padding: 1.5rem;
   border-radius: 12px;
   box-shadow: 0 4px 6px rgba(0,0,0,0.1);
   max-width: 600px;
   margin: 0 auto;
+  width: 100%;
 }
 
 .token-header {
   text-align: center;
-  margin-bottom: 2rem;
+  margin-bottom: 1.5rem;
   padding-bottom: 1rem;
   border-bottom: 2px solid #e0e0e0;
 }
 
 .token-header h2 {
   color: #666;
-  font-size: 1rem;
+  font-size: 0.95rem;
   margin-bottom: 0.5rem;
 }
 
 .token-number {
-  font-size: 2.5rem;
+  font-size: 2rem;
   font-weight: bold;
   color: #4CAF50;
   letter-spacing: 2px;
+  word-break: break-all;
 }
 
 .token-details {
-  margin-bottom: 2rem;
+  margin-bottom: 1.5rem;
 }
 
 .detail-row {
   display: flex;
   justify-content: space-between;
+  align-items: center;
   padding: 0.75rem;
   margin-bottom: 0.5rem;
   background: #f9f9f9;
   border-radius: 4px;
+  flex-wrap: wrap;
+  gap: 0.5rem;
 }
 
 .detail-row .label {
   font-weight: bold;
   color: #666;
+  font-size: 0.9rem;
+}
+
+.detail-row span:not(.label) {
+  font-size: 0.9rem;
+  text-align: right;
+  word-break: break-word;
+  flex: 1;
+  min-width: 120px;
 }
 
 .amount {
-  font-size: 1.3rem;
+  font-size: 1.2rem;
   font-weight: bold;
   color: #4CAF50;
 }
 
 .poojas-list {
-  margin-bottom: 2rem;
+  margin-bottom: 1.5rem;
   padding: 1rem;
   background: #f9f9f9;
   border-radius: 8px;
@@ -124,21 +220,31 @@
 .poojas-list h3 {
   margin-bottom: 1rem;
   color: #333;
+  font-size: 1.1rem;
 }
 
 .pooja-item {
   display: flex;
   justify-content: space-between;
-  padding: 0.5rem;
+  align-items: center;
+  padding: 0.75rem;
   margin-bottom: 0.5rem;
   background: white;
   border-radius: 4px;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  font-size: 0.9rem;
+}
+
+.pooja-item span:last-child {
+  font-weight: 600;
+  color: #4CAF50;
 }
 
 .qr-code-section {
   text-align: center;
-  margin-bottom: 2rem;
-  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+  padding: 1rem;
   background: #f9f9f9;
   border-radius: 8px;
 }
@@ -146,36 +252,48 @@
 .qr-code-section h3 {
   margin-bottom: 1rem;
   color: #333;
+  font-size: 1.1rem;
 }
 
 .qr-code {
   display: inline-block;
-  padding: 1rem;
+  padding: 0.75rem;
   background: white;
   border-radius: 8px;
+  max-width: 100%;
+}
+
+.qr-code svg {
+  max-width: 100%;
+  height: auto;
 }
 
 .instructions {
-  margin-bottom: 2rem;
-  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+  padding: 1rem;
   background: #fff3cd;
   border-left: 4px solid #ffc107;
   border-radius: 4px;
 }
 
 .instructions h3 {
-  margin-bottom: 1rem;
+  margin-bottom: 0.75rem;
   color: #856404;
+  font-size: 1rem;
 }
 
 .instructions ul {
   list-style: none;
   padding: 0;
+  margin: 0;
 }
 
 .instructions li {
   padding: 0.5rem 0;
   color: #856404;
+  font-size: 0.9rem;
+  line-height: 1.5;
+  text-align: left;
 }
 
 .instructions li:before {
@@ -187,8 +305,155 @@
 
 .token-actions {
   display: flex;
-  gap: 1rem;
+  flex-direction: column;
+  gap: 0.75rem;
   justify-content: center;
+}
+
+.token-actions .btn {
+  width: 100%;
+  padding: 0.875rem 1.5rem;
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+/* Mobile Responsive Styles */
+@media (max-width: 768px) {
+  .token-page {
+    padding: 0.5rem 0;
+  }
+
+  .container {
+    padding: 0.75rem;
+  }
+
+  .page-title {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+  }
+
+  .selected-poojas-summary {
+    padding: 1rem;
+    margin-bottom: 1rem;
+  }
+
+  .selected-poojas-summary h3 {
+    font-size: 1.1rem;
+  }
+
+  .summary-item {
+    font-size: 0.9rem;
+    padding: 0.5rem;
+  }
+
+  .summary-total {
+    font-size: 1rem;
+    padding: 0.75rem;
+  }
+
+  .token-form {
+    padding: 1rem;
+  }
+
+  .token-success h1 {
+    font-size: 1.3rem;
+    margin-bottom: 1rem;
+  }
+
+  .token-card {
+    padding: 1rem;
+  }
+
+  .token-number {
+    font-size: 1.75rem;
+  }
+
+  .detail-row {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .detail-row span:not(.label) {
+    text-align: left;
+    min-width: auto;
+    width: 100%;
+  }
+
+  .amount {
+    font-size: 1.1rem;
+  }
+
+  .qr-code {
+    padding: 0.5rem;
+  }
+
+  .qr-code svg {
+    width: 180px;
+    height: 180px;
+  }
+
+  .instructions {
+    padding: 0.75rem;
+  }
+
+  .instructions li {
+    font-size: 0.85rem;
+  }
+
+  .token-rules {
+    padding: 0.75rem !important;
+    font-size: 0.85rem !important;
+    margin-bottom: 1rem !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .token-page {
+    padding: 0.25rem 0;
+  }
+
+  .container {
+    padding: 0.5rem;
+  }
+
+  .page-title {
+    font-size: 1.25rem;
+  }
+
+  .selected-poojas-summary,
+  .token-form {
+    padding: 0.75rem;
+  }
+
+  .token-card {
+    padding: 0.75rem;
+  }
+
+  .token-number {
+    font-size: 1.5rem;
+    letter-spacing: 1px;
+  }
+
+  .qr-code svg {
+    width: 150px;
+    height: 150px;
+  }
+
+  .token-actions .btn {
+    padding: 0.75rem 1rem;
+    font-size: 0.95rem;
+  }
+}
+
+/* Error message styling */
+.message.error {
+  background-color: #fee;
+  color: #c33;
+  padding: 0.75rem 1rem;
+  border-radius: 6px;
+  border-left: 4px solid #dc3545;
+  margin-bottom: 1rem;
+  font-size: 0.9rem;
 }
 
 @media print {
@@ -198,6 +463,15 @@
   
   .navbar {
     display: none;
+  }
+
+  .token-page {
+    padding: 0;
+    background-color: white;
+  }
+
+  .token-card {
+    box-shadow: none;
   }
 }
 

@@ -23,6 +23,7 @@ app.use('/api/poojas', require('./routes/poojas'));
 app.use('/api/tokens', require('./routes/tokens'));
 app.use('/api/map', require('./routes/map'));
 app.use('/api/contact', require('./routes/contact'));
+app.use('/api/footer', require('./routes/footer'));
 app.use('/api/upload', require('./routes/upload'));
 app.use('/api/theme', require('./routes/theme'));
 app.use('/api/settings', require('./routes/settings'));

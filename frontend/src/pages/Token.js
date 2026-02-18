@@ -17,6 +17,15 @@ const Token = () => {
   const [submitError, setSubmitError] = useState('');
   const navigate = useNavigate();
 
+  const setFieldError = (field, message) => {
+    setFieldErrors((prev) => {
+      const next = { ...prev };
+      if (message) next[field] = message;
+      else delete next[field];
+      return next;
+    });
+  };
+
   useEffect(() => {
     const saved = localStorage.getItem('selectedPoojas');
     if (!saved || JSON.parse(saved).length === 0) {
@@ -31,18 +40,67 @@ const Token = () => {
   }, []);
 
   const handleInputChange = (e) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value
-    });
+    const { name, value } = e.target;
+    
+    // Real-time validation for mobile number - only allow digits
+    if (name === 'mobileNumber') {
+      const numericValue = value.replace(/\D/g, ''); // Remove non-digits
+      if (numericValue.length <= 10) {
+        setFormData({
+          ...formData,
+          [name]: numericValue
+        });
+        // Clear error when user starts typing
+        setFieldError(name, '');
+        // Real-time validation
+        if (numericValue.length > 0 && numericValue.length < 10) {
+          setFieldError(name, 'Mobile number must be 10 digits');
+        } else if (numericValue.length === 10 || numericValue.length === 0) {
+          setFieldError(name, '');
+        }
+      }
+    } else {
+      // For name field, allow all characters but trim whitespace
+      let processedValue = value;
+      if (name === 'devoteeName') {
+        // Allow letters, spaces, and common name characters
+        processedValue = value.replace(/[^a-zA-Z\s\-'\.]/g, '');
+        // Clear error when user starts typing
+        setFieldError(name, '');
+        // Real-time validation
+        const trimmed = processedValue.trim();
+        if (trimmed.length > 0 && trimmed.length < 2) {
+          setFieldError(name, 'Name must be at least 2 characters');
+        } else if (trimmed.length >= 2 || trimmed.length === 0) {
+          setFieldError(name, '');
+        }
+      }
+      
+      setFormData({
+        ...formData,
+        [name]: processedValue
+      });
+    }
   };
 
   const validateForm = () => {
     const err = {};
     const name = (formData.devoteeName || '').trim();
-    if (name.length < 2) err.devoteeName = 'Name must be at least 2 characters';
+    if (name.length < 2) {
+      err.devoteeName = 'Name must be at least 2 characters';
+    } else if (name.length > 100) {
+      err.devoteeName = 'Name must be less than 100 characters';
+    } else if (!/^[a-zA-Z\s\-'\.]+$/.test(name)) {
+      err.devoteeName = 'Name can only contain letters, spaces, hyphens, apostrophes, and periods';
+    }
+    
     const mobile = (formData.mobileNumber || '').trim();
-    if (!/^[0-9]{10}$/.test(mobile)) err.mobileNumber = 'Enter a valid 10-digit mobile number';
+    if (!mobile) {
+      err.mobileNumber = 'Mobile number is required';
+    } else if (!/^[0-9]{10}$/.test(mobile)) {
+      err.mobileNumber = 'Enter a valid 10-digit mobile number';
+    }
+    
     setFieldErrors(err);
     setSubmitError('');
     return Object.keys(err).length === 0;
@@ -176,6 +234,8 @@ const Token = () => {
     );
   }
 
+  const hasErrors = Object.values(fieldErrors).some(Boolean);
+
   return (
     <div className="token-page">
       <div className="container">
@@ -206,32 +266,67 @@ const Token = () => {
 
         <form onSubmit={handleSubmit} className="token-form">
           <div className="form-group">
-            <label>Devotee Name *</label>
+            <label htmlFor="devoteeName">Devotee Name *</label>
             <input
+              id="devoteeName"
               type="text"
               name="devoteeName"
               value={formData.devoteeName}
-              onChange={(e) => { handleInputChange(e); setFieldErrors(prev => ({ ...prev, devoteeName: '' })); }}
+              onChange={handleInputChange}
+              onBlur={() => {
+                const name = formData.devoteeName.trim();
+                if (name && name.length < 2) {
+                  setFieldError('devoteeName', 'Name must be at least 2 characters');
+                }
+              }}
               placeholder="Enter your name (min 2 characters)"
               maxLength={100}
+              className={fieldErrors.devoteeName ? 'input-error' : formData.devoteeName.trim().length >= 2 ? 'input-valid' : ''}
+              autoComplete="name"
+              required
             />
-            {fieldErrors.devoteeName && <span className="field-error">{fieldErrors.devoteeName}</span>}
+            {fieldErrors.devoteeName && <span className="field-error" role="alert">{fieldErrors.devoteeName}</span>}
+            {formData.devoteeName.trim().length >= 2 && !fieldErrors.devoteeName && (
+              <span className="field-success">✓ Valid name</span>
+            )}
           </div>
 
           <div className="form-group">
-            <label>Mobile Number *</label>
+            <label htmlFor="mobileNumber">Mobile Number *</label>
             <input
+              id="mobileNumber"
               type="tel"
               name="mobileNumber"
               value={formData.mobileNumber}
-              onChange={(e) => { handleInputChange(e); setFieldErrors(prev => ({ ...prev, mobileNumber: '' })); }}
+              onChange={handleInputChange}
+              onBlur={() => {
+                const mobile = formData.mobileNumber.trim();
+                if (mobile && !/^[0-9]{10}$/.test(mobile)) {
+                  setFieldError('mobileNumber', 'Enter a valid 10-digit mobile number');
+                }
+              }}
               placeholder="10-digit mobile number"
               maxLength={10}
+              className={fieldErrors.mobileNumber ? 'input-error' : formData.mobileNumber.length === 10 ? 'input-valid' : ''}
+              autoComplete="tel"
+              inputMode="numeric"
+              pattern="[0-9]{10}"
+              required
             />
-            {fieldErrors.mobileNumber && <span className="field-error">{fieldErrors.mobileNumber}</span>}
+            {fieldErrors.mobileNumber && <span className="field-error" role="alert">{fieldErrors.mobileNumber}</span>}
+            {formData.mobileNumber.length === 10 && !fieldErrors.mobileNumber && (
+              <span className="field-success">✓ Valid mobile number</span>
+            )}
+            {formData.mobileNumber.length > 0 && formData.mobileNumber.length < 10 && (
+              <span className="field-hint">{formData.mobileNumber.length}/10 digits</span>
+            )}
           </div>
 
-          <button type="submit" className="btn btn-primary" disabled={loading}>
+          <button 
+            type="submit" 
+            className="btn btn-primary" 
+            disabled={loading || hasErrors || !formData.devoteeName.trim() || formData.mobileNumber.length !== 10}
+          >
             {loading ? 'Generating Token...' : 'Generate Token'}
           </button>
         </form>

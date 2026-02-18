@@ -1,5 +1,13 @@
 .App {
   min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Ensure main content area takes available space */
+main,
+.container {
+  flex: 1;
 }
 
 /* Common Button Styles */

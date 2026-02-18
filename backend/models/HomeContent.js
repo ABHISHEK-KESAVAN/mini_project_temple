@@ -42,7 +42,14 @@ const homeContentSchema = new mongoose.Schema({
   aboutTeaser: {
     type: String,
     default: ''
-  }
+  },
+  // Hero section (full-width welcome)
+  heroImage: { type: String, default: '' },
+  heroWelcomeTitle: { type: String, default: 'Welcome' },
+  heroCtaText: { type: String, default: 'View Poojas' },
+  heroCtaLink: { type: String, default: '/poojas' },
+  // About Us section (two-column: image + text)
+  aboutImage: { type: String, default: '' }
 }, {
   timestamps: true
 });
