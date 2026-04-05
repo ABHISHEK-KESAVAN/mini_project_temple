@@ -24,21 +24,21 @@ const ImageUpload = ({ value, onChange, label = 'Image', accept = 'image/*' }) =
     formData.append('image', file);
 
     try {
-      const response = await api.post('/upload/image', formData, {
-        headers: {
-          'Content-Type': 'multipart/form-data',
-        },
-      });
-      
-      // Use the full URL for the uploaded image
-      const baseUrl = process.env.REACT_APP_API_URL || 'http://localhost:5000';
-      const imageUrl = `${baseUrl}${response.data.url}`;
-      setPreview(imageUrl);
-      onChange(imageUrl);
+      // Do NOT set Content-Type manually — the api.js request interceptor
+      // detects FormData and removes Content-Type so axios generates the
+      // correct multipart boundary automatically.
+      const response = await api.post('/upload/image', formData);
+
+      // Store the relative path (e.g. /uploads/image-xxx.jpg) so it works on any host
+      const imageUrl = response.data.url;
+      const previewUrl = `${process.env.REACT_APP_API_URL || 'http://localhost:5000'}${imageUrl}`;
+      setPreview(previewUrl);
+      onChange(previewUrl);
       setUseUrl(false);
     } catch (error) {
-      console.error('Upload error:', error);
-      alert('Failed to upload image. Please try again or use a URL instead.');
+      const serverMsg = error.response?.data?.message || error.message;
+      console.error('Upload error:', serverMsg, error);
+      alert(`Failed to upload image: ${serverMsg}\n\nPlease try again or use a URL instead.`);
     } finally {
       setUploading(false);
     }

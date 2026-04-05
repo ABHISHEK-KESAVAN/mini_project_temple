@@ -13,6 +13,7 @@ const ManageHome = () => {
     aboutTeaser: '',
     aboutImage: '',
     heroImage: '',
+    heroImages: [],
     heroWelcomeTitle: '',
     heroCtaText: 'View Poojas',
     heroCtaLink: '/poojas',
@@ -31,7 +32,14 @@ const ManageHome = () => {
   const fetchContent = async () => {
     try {
       const response = await api.get('/home');
-      setContent(response.data);
+      const data = response.data;
+      const heroImages =
+        Array.isArray(data.heroImages) && data.heroImages.length
+          ? data.heroImages.filter(Boolean)
+          : data.heroImage
+            ? [data.heroImage]
+            : [];
+      setContent({ ...data, heroImages });
     } catch (error) {
       console.error('Error fetching content:', error);
     } finally {
@@ -106,13 +114,39 @@ const ManageHome = () => {
     });
   };
 
+  const handleHeroImageChange = (index, url) => {
+    const next = [...(content.heroImages || [])];
+    next[index] = url;
+    setContent({ ...content, heroImages: next });
+  };
+
+  const addHeroImage = () => {
+    setContent({
+      ...content,
+      heroImages: [...(content.heroImages || []), '']
+    });
+  };
+
+  const removeHeroImage = (index) => {
+    setContent({
+      ...content,
+      heroImages: (content.heroImages || []).filter((_, i) => i !== index)
+    });
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setSaving(true);
     setMessage('');
 
     try {
-      await api.put('/home', content);
+      const heroImages = (content.heroImages || []).map((u) => (u || '').trim()).filter(Boolean);
+      const payload = {
+        ...content,
+        heroImages,
+        heroImage: heroImages[0] || ''
+      };
+      await api.put('/home', payload);
       setMessage('Home page updated successfully!');
       setTimeout(() => setMessage(''), 3000);
     } catch (error) {
@@ -164,12 +198,25 @@ const ManageHome = () => {
 
           <div className="form-section">
             <h2>Hero Welcome Section</h2>
-            <p className="form-hint">Full-width section at top of Home. Background image, title, message, and CTA button.</p>
-            <ImageUpload
-              label="Hero background image"
-              value={content.heroImage || ''}
-              onChange={(url) => setContent({ ...content, heroImage: url })}
-            />
+            <p className="form-hint">
+              Full-width section at top of Home. Add one or more background images — they rotate every 3 seconds on the site.
+              Title, message, and CTA are unchanged.
+            </p>
+            {(content.heroImages || []).map((url, index) => (
+              <div key={index} className="array-item">
+                <ImageUpload
+                  label={`Hero background image ${index + 1}`}
+                  value={url || ''}
+                  onChange={(newUrl) => handleHeroImageChange(index, newUrl)}
+                />
+                <button type="button" onClick={() => removeHeroImage(index)} className="btn btn-danger">
+                  Remove image
+                </button>
+              </div>
+            ))}
+            <button type="button" onClick={addHeroImage} className="btn btn-secondary">
+              Add hero image
+            </button>
             <div className="form-group">
               <label>Hero welcome title</label>
               <input

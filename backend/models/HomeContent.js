@@ -43,7 +43,11 @@ const homeContentSchema = new mongoose.Schema({
     type: String,
     default: ''
   },
-  // Hero section (full-width welcome)
+  // Hero section (full-width welcome) — multiple backgrounds for slider; heroImage kept for legacy
+  heroImages: {
+    type: [String],
+    default: []
+  },
   heroImage: { type: String, default: '' },
   heroWelcomeTitle: { type: String, default: 'Welcome' },
   heroCtaText: { type: String, default: 'View Poojas' },

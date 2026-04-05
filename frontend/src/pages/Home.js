@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback, useMemo, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import api from '../utils/api';
 import './Home.css';
@@ -6,10 +6,62 @@ import './Home.css';
 const API_BASE = process.env.REACT_APP_API_URL || 'http://localhost:5000';
 const getImageSrc = (url) => (url && url.startsWith('/uploads')) ? `${API_BASE.replace(/\/api\/?$/, '')}${url}` : url;
 
+/** When no hero images are configured, use a neutral temple-themed placeholder */
+const DEFAULT_HERO_FALLBACK =
+  'https://images.unsplash.com/photo-1547036967-23d11aacaee0?w=1920&q=80';
+
+const SLIDE_INTERVAL_MS = 3000;
+
 const Home = () => {
   const [content, setContent] = useState(null);
   const [poojas, setPoojas] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [slideIndex, setSlideIndex] = useState(0);
+  const [bgOpacity, setBgOpacity] = useState(1);
+  const pendingAdvance = useRef(false);
+
+  const heroUrls = useMemo(() => {
+    if (!content) return [];
+    let list = [];
+    if (Array.isArray(content.heroImages) && content.heroImages.length) {
+      list = content.heroImages.filter((u) => u && String(u).trim());
+    }
+    if (list.length === 0 && content.heroImage) {
+      list = [content.heroImage];
+    }
+    if (list.length === 0 && content.banners?.[0]?.image) {
+      list = [content.banners[0].image];
+    }
+    if (list.length === 0) {
+      list = [DEFAULT_HERO_FALLBACK];
+    }
+    return list;
+  }, [content]);
+
+  const heroUrlsKey = heroUrls.join('|');
+
+  useEffect(() => {
+    setSlideIndex(0);
+    setBgOpacity(1);
+    pendingAdvance.current = false;
+  }, [heroUrlsKey]);
+
+  useEffect(() => {
+    if (heroUrls.length <= 1) return undefined;
+    const id = setInterval(() => {
+      pendingAdvance.current = true;
+      setBgOpacity(0);
+    }, SLIDE_INTERVAL_MS);
+    return () => clearInterval(id);
+  }, [heroUrlsKey]);
+
+  const handleHeroBgTransitionEnd = (e) => {
+    if (e.propertyName !== 'opacity') return;
+    if (!pendingAdvance.current) return;
+    pendingAdvance.current = false;
+    setSlideIndex((i) => (i + 1) % heroUrls.length);
+    requestAnimationFrame(() => setBgOpacity(1));
+  };
 
   const fetchHomeContent = useCallback(async () => {
     try {
@@ -34,7 +86,7 @@ const Home = () => {
     return <div className="spinner"></div>;
   }
 
-  const heroImage = content?.heroImage || (content?.banners?.[0]?.image) || '';
+  const heroBgUrl = heroUrls[slideIndex] ? getImageSrc(heroUrls[slideIndex]) : '';
   const heroTitle = content?.heroWelcomeTitle || content?.templeName || 'Welcome';
   const welcomeMessage = content?.welcomeMessage || 'May the divine light bring peace, prosperity, and blessings to you and your family.';
   const heroCtaText = content?.heroCtaText || 'View Poojas';
@@ -46,11 +98,15 @@ const Home = () => {
 
   return (
     <div className="home-page">
-      {/* Hero Welcome Section */}
+      {/* Hero Welcome Section — background cycles; overlay + content unchanged */}
       <section className="hero-section">
         <div
           className="hero-bg"
-          style={{ backgroundImage: heroImage ? `url(${getImageSrc(heroImage)})` : undefined }}
+          style={{
+            backgroundImage: heroBgUrl ? `url(${heroBgUrl})` : undefined,
+            opacity: bgOpacity
+          }}
+          onTransitionEnd={handleHeroBgTransitionEnd}
         />
         <div className="hero-overlay" />
         <div className="hero-content container">
@@ -152,10 +208,10 @@ const Home = () => {
               </div>
             </>
           ) : (
-            <>
+            <div className="poojas-preview-empty">
               <p className="block-empty">No poojas added yet.</p>
               <Link to="/poojas" className="btn btn-primary">View Poojas</Link>
-            </>
+            </div>
           )}
         </section>
 

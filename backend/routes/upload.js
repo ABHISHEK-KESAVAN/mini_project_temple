@@ -5,20 +5,31 @@ const auth = require('../middleware/auth');
 const path = require('path');
 
 // Single image upload (admin only)
-router.post('/image', auth, upload.single('image'), (req, res) => {
+router.post('/image', auth, (req, res, next) => {
+  upload.single('image')(req, res, (err) => {
+    if (err) {
+      console.error('Multer error:', err.message);
+      return res.status(400).json({ message: err.message });
+    }
+    next();
+  });
+}, (req, res) => {
   try {
     if (!req.file) {
+      console.warn('Upload attempt with no file attached');
       return res.status(400).json({ message: 'No file uploaded' });
     }
 
     // Return the URL to access the uploaded file
     const fileUrl = `/uploads/${req.file.filename}`;
+    console.log('Image uploaded successfully:', fileUrl);
     res.json({
       message: 'Image uploaded successfully',
       url: fileUrl,
       filename: req.file.filename
     });
   } catch (error) {
+    console.error('Upload route error:', error);
     res.status(500).json({ message: error.message });
   }
 });
