@@ -22,6 +22,7 @@ import ManageFooter from './pages/admin/ManageFooter';
 import ManageTheme from './pages/admin/ManageTheme';
 import ManageTokenSettings from './pages/admin/ManageTokenSettings';
 import PrivateRoute from './components/PrivateRoute';
+import Chatbot from './components/Chatbot';
 import './App.css';
 
 function App() {
@@ -52,6 +53,7 @@ function App() {
         <Route path="/admin/footer" element={<PrivateRoute><ManageFooter /></PrivateRoute>} />
         <Route path="/admin/theme" element={<PrivateRoute><ManageTheme /></PrivateRoute>} />
       </Routes>
+      <Chatbot />
       </Router>
     </ThemeProvider>
   );
