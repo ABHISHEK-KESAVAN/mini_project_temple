@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import api from '../utils/api';
+import Loader from '../components/Loader';
 import './Gallery.css';
 
 const API_BASE = process.env.REACT_APP_API_URL || 'http://localhost:5000';
@@ -26,14 +27,14 @@ const Gallery = () => {
   };
 
   if (loading) {
-    return <div className="spinner"></div>;
+    return <Loader label="Loading gallery…" />;
   }
 
   const banners = content?.banners || [];
   const aspectRatio = content?.bannerAspectRatio || '16/9';
 
   return (
-    <div className="gallery-page">
+    <div className="gallery-page page-fade-in">
       <div className="container">
         <h1 className="gallery-title">Gallery</h1>
         <p className="gallery-subtitle">Images from our temple. Same images as on the home slider.</p>

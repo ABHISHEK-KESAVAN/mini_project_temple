@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import api from '../../utils/api';
 import ImageUpload from '../../components/ImageUpload';
+import Loader from '../../components/Loader';
 import './AdminPages.css';
 
 const ManageHome = () => {
@@ -157,7 +158,7 @@ const ManageHome = () => {
   };
 
   if (loading) {
-    return <div className="spinner"></div>;
+    return <Loader label="Loading home content…" />;
   }
 
   return (

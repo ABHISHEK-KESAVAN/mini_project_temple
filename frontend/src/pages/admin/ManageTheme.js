@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import api from '../../utils/api';
 import { useTheme } from '../../components/ThemeProvider';
 import ImageUpload from '../../components/ImageUpload';
+import Loader from '../../components/Loader';
 import './AdminPages.css';
 
 const ManageTheme = () => {
@@ -204,7 +205,7 @@ const ManageTheme = () => {
   ];
 
   if (loading) {
-    return <div className="spinner"></div>;
+    return <Loader label="Loading theme settings…" />;
   }
 
   return (

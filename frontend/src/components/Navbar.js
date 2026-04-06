@@ -71,12 +71,7 @@ const Navbar = () => {
             </Link>
           </li>
           <li>
-            <Link to="/map" className={location.pathname === '/map' ? 'active' : ''} onClick={closeMenu}>
-              Map
-            </Link>
-          </li>
-          <li>
-            <Link to="/contact" className={location.pathname === '/contact' ? 'active' : ''} onClick={closeMenu}>
+            <Link to="/contact" className={location.pathname === '/contact' || location.pathname === '/map' ? 'active' : ''} onClick={closeMenu}>
               Contact
             </Link>
           </li>

@@ -59,7 +59,13 @@ async function main() {
   // About
   await AboutContent.deleteMany({});
   await AboutContent.create({
-    history: 'This temple has a long spiritual history and is visited by devotees daily.',
+    hero: {
+      backgroundImage: 'https://images.unsplash.com/photo-1586348943529-beaae6c28db9?auto=format&fit=crop&w=1600&q=80'
+    },
+    history: {
+      text: 'This temple has a long spiritual history and is visited by devotees daily.',
+      image: 'https://images.unsplash.com/photo-1514222134-b57cbb8ce073?auto=format&fit=crop&w=1200&q=80'
+    },
     deityImportance: 'The presiding deity is worshipped for prosperity and peace.',
     rules: [{ rule: 'Maintain silence inside temple premises.' }, { rule: 'Dress modestly.' }],
     dailyTimings: {
@@ -88,11 +94,23 @@ async function main() {
   // Contact
   await ContactContent.deleteMany({});
   await ContactContent.create({
+    heroTitle: 'Visit, Call, or Write to the Temple',
+    heroSubtitle: 'All temple contact details, route guidance, and support information in one place.',
+    address: 'Temple Street, Your City, Your State',
+    phone: '+91 9876543210',
     templePhone: '+91 9876543210',
     officeTimings: '9:00 AM - 6:00 PM',
     emergencyContact: '+91 9123456780',
     email: 'temple@example.com',
+    latitude: 12.9716,
+    longitude: 77.5946,
+    directions: 'Take the main road towards City Center.\nTurn at the temple arch near the market.\nParking is available beside the community hall.',
     helpInstructions: 'For help, contact office during timings. In emergency, use emergency contact.',
+    socialLinks: {
+      facebook: 'https://facebook.com/temple',
+      instagram: 'https://instagram.com/temple',
+      youtube: 'https://youtube.com/@temple'
+    }
   });
 
   // Poojas – sample; admin can edit or remove

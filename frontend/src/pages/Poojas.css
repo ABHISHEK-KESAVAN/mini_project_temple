@@ -14,6 +14,8 @@
   position: sticky;
   top: 80px;
   z-index: 100;
+  /* Always use dark text — this is a white card, never themed */
+  color: #333333;
 }
 
 .selected-summary h3 {
@@ -32,6 +34,7 @@
   margin-bottom: 0.5rem;
   background: #f0f0f0;
   border-radius: 4px;
+  color: #333333;
 }
 
 .total-amount {
@@ -78,13 +81,15 @@
 }
 
 .pooja-content h3 {
-  color: #333;
+  color: inherit;
   margin-bottom: 0.5rem;
   font-size: 1.3rem;
+  font-weight: bold;
 }
 
 .pooja-description {
-  color: #666;
+  color: inherit;
+  opacity: 0.85;
   margin-bottom: 1rem;
   line-height: 1.6;
 }

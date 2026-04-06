@@ -1,4 +1,5 @@
 const express = require('express');
+const mongoose = require('mongoose');
 const router = express.Router();
 const Token = require('../models/Token');
 const TokenCounter = require('../models/TokenCounter');
@@ -111,15 +112,19 @@ router.post('/', async (req, res) => {
       expiresAt
     };
 
-    // Generate QR code
-    const qrCodeData = JSON.stringify({
-      tokenNumber,
-      devoteeName,
-      mobileNumber,
-      totalAmount,
-      expiresAt
+    // Pre-generate the document _id so we can embed it in the QR URL
+    // before the Token document is created (avoids 'token before init' error)
+    const tokenId = new mongoose.Types.ObjectId();
+    tokenData._id = tokenId;
+
+    // Generate QR code — encode a URL so scanning opens the token view page
+    const frontendOrigin = process.env.FRONTEND_URL || 'http://localhost:3000';
+    const tokenViewUrl = `${frontendOrigin}/token/view/${tokenId}`;
+    const qrCode = await QRCode.toDataURL(tokenViewUrl, {
+      errorCorrectionLevel: 'M',
+      margin: 2,
+      width: 300
     });
-    const qrCode = await QRCode.toDataURL(qrCodeData);
 
     tokenData.qrCode = qrCode;
 

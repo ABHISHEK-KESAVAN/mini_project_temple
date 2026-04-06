@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { ThemeProvider } from './components/ThemeProvider';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
@@ -7,7 +7,7 @@ import Home from './pages/Home';
 import About from './pages/About';
 import Poojas from './pages/Poojas';
 import Token from './pages/Token';
-import Map from './pages/Map';
+import TokenView from './pages/TokenView';
 import Contact from './pages/Contact';
 import Gallery from './pages/Gallery';
 import AdminLogin from './pages/admin/AdminLogin';
@@ -34,7 +34,8 @@ function App() {
         <Route path="/about" element={<><Navbar /><About /><Footer /></>} />
         <Route path="/poojas" element={<><Navbar /><Poojas /><Footer /></>} />
         <Route path="/token" element={<><Navbar /><Token /><Footer /></>} />
-        <Route path="/map" element={<><Navbar /><Map /><Footer /></>} />
+        <Route path="/token/view/:id" element={<><Navbar /><TokenView /><Footer /></>} />
+        <Route path="/map" element={<Navigate to="/contact" replace />} />
         <Route path="/contact" element={<><Navbar /><Contact /><Footer /></>} />
         <Route path="/gallery" element={<><Navbar /><Gallery /><Footer /></>} />
         

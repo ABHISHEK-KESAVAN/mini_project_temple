@@ -1,11 +1,21 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import api from '../../utils/api';
+import ImageUpload from '../../components/ImageUpload';
+import Loader from '../../components/Loader';
 import './AdminPages.css';
 
 const ManageAbout = () => {
   const [content, setContent] = useState({
-    history: '',
+    heroTitle: '',
+    heroSubtitle: '',
+    hero: {
+      backgroundImage: ''
+    },
+    history: {
+      text: '',
+      image: ''
+    },
     deityImportance: '',
     rules: [],
     dailyTimings: {
@@ -25,6 +35,27 @@ const ManageAbout = () => {
     fetchContent();
   }, []);
 
+  const setNestedValue = (path, value) => {
+    const keys = path.split('.');
+
+    setContent((prev) => {
+      const next = { ...prev };
+      let cursor = next;
+
+      keys.forEach((key, index) => {
+        if (index === keys.length - 1) {
+          cursor[key] = value;
+          return;
+        }
+
+        cursor[key] = { ...(cursor[key] || {}) };
+        cursor = cursor[key];
+      });
+
+      return next;
+    });
+  };
+
   const fetchContent = async () => {
     try {
       const response = await api.get('/about');
@@ -37,15 +68,8 @@ const ManageAbout = () => {
   };
 
   const handleChange = (e) => {
-    if (e.target.name.startsWith('dailyTimings.')) {
-      const field = e.target.name.split('.')[1];
-      setContent({
-        ...content,
-        dailyTimings: {
-          ...content.dailyTimings,
-          [field]: e.target.value
-        }
-      });
+    if (e.target.name.includes('.')) {
+      setNestedValue(e.target.name, e.target.value);
     } else {
       setContent({
         ...content,
@@ -112,7 +136,7 @@ const ManageAbout = () => {
   };
 
   if (loading) {
-    return <div className="spinner"></div>;
+    return <Loader label="Loading about content…" />;
   }
 
   return (
@@ -132,12 +156,49 @@ const ManageAbout = () => {
         )}
 
         <form onSubmit={handleSubmit} className="admin-form">
+
+          {/* ── Hero Banner ── */}
+          <div className="form-section">
+            <h2>Hero Banner</h2>
+            <div className="form-group">
+              <label>Page Title (shown in the hero)</label>
+              <input
+                type="text"
+                name="heroTitle"
+                value={content.heroTitle || ''}
+                onChange={handleChange}
+                placeholder="e.g., About Our Temple"
+              />
+            </div>
+            <div className="form-group">
+              <label>Hero Subtitle / Tagline</label>
+              <input
+                type="text"
+                name="heroSubtitle"
+                value={content.heroSubtitle || ''}
+                onChange={handleChange}
+                placeholder="e.g., A Sacred Journey Through Devotion & Heritage"
+              />
+            </div>
+            <ImageUpload
+              label="Hero Banner Background Image"
+              value={content.hero?.backgroundImage || ''}
+              onChange={(url) => setNestedValue('hero.backgroundImage', url)}
+            />
+          </div>
+
+          {/* ── History ── */}
           <div className="form-section">
             <h2>History</h2>
+            <ImageUpload
+              label="History Section Image"
+              value={content.history?.image || ''}
+              onChange={(url) => setNestedValue('history.image', url)}
+            />
             <div className="form-group">
               <textarea
-                name="history"
-                value={content.history}
+                name="history.text"
+                value={content.history?.text || ''}
                 onChange={handleChange}
                 rows="6"
                 placeholder="Temple history..."

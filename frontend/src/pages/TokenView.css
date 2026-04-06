@@ -1,0 +1,267 @@
+/* ── Token View Page ─────────────────────────────────────────────────────── */
+
+.token-view-page {
+  min-height: 100vh;
+  background-color: #f0f4f8;
+  padding: 2rem 0 4rem;
+  color: #333333;
+}
+
+/* Loading & Error states */
+.token-view-loading,
+.token-view-error {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 60vh;
+  gap: 1rem;
+  color: #555;
+  text-align: center;
+}
+
+.token-view-loading .spinner-large {
+  width: 52px;
+  height: 52px;
+  border: 5px solid #e0e0e0;
+  border-top-color: var(--primary-color, #667eea);
+  border-radius: 50%;
+  animation: spin 0.85s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.token-view-error h2 {
+  color: #c0392b;
+  font-size: 1.4rem;
+}
+
+.token-view-error p {
+  color: #666;
+  font-size: 1rem;
+  max-width: 340px;
+}
+
+/* ── Main card ────────────────────────────────────────────────────────────── */
+
+.token-view-card {
+  background: #ffffff;
+  border-radius: 16px;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.10);
+  max-width: 560px;
+  margin: 0 auto;
+  overflow: hidden;
+  color: #333333;
+}
+
+/* Status banner at top */
+.token-view-banner {
+  padding: 1.25rem 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  font-size: 1.2rem;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+}
+
+.token-view-banner.banner-pending {
+  background: linear-gradient(135deg, #27ae60, #2ecc71);
+  color: #ffffff;
+}
+
+.token-view-banner.banner-used {
+  background: linear-gradient(135deg, #2980b9, #3498db);
+  color: #ffffff;
+}
+
+.token-view-banner.banner-expired {
+  background: linear-gradient(135deg, #c0392b, #e74c3c);
+  color: #ffffff;
+}
+
+.token-view-banner.banner-cancelled {
+  background: linear-gradient(135deg, #7f8c8d, #95a5a6);
+  color: #ffffff;
+}
+
+.banner-icon {
+  font-size: 1.5rem;
+}
+
+/* Temple header inside card */
+.token-view-header {
+  text-align: center;
+  padding: 1.5rem 2rem 1rem;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.token-view-header h2 {
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  color: #999;
+  margin-bottom: 0.35rem;
+}
+
+.token-view-number {
+  font-size: 2rem;
+  font-weight: 800;
+  color: var(--primary-color, #667eea);
+  letter-spacing: 2px;
+  word-break: break-all;
+}
+
+/* ── Detail rows ─────────────────────────────────────────────────────────── */
+
+.token-view-details {
+  padding: 1.25rem 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.tv-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.65rem 0.85rem;
+  background: #f8f9fa;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  color: #333333;
+}
+
+.tv-row .tv-label {
+  font-weight: 600;
+  color: #666;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.tv-row .tv-value {
+  font-weight: 500;
+  color: #333333;
+  text-align: right;
+}
+
+.tv-value.amount {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #27ae60;
+}
+
+.tv-value.status-pending { color: #27ae60; font-weight: 700; }
+.tv-value.status-used    { color: #2980b9; font-weight: 700; }
+.tv-value.status-expired { color: #c0392b; font-weight: 700; }
+.tv-value.status-cancelled { color: #7f8c8d; font-weight: 700; }
+
+/* ── Poojas list ─────────────────────────────────────────────────────────── */
+
+.token-view-poojas {
+  padding: 0 2rem 1rem;
+}
+
+.token-view-poojas h3 {
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  color: #999;
+  margin-bottom: 0.75rem;
+}
+
+.tv-pooja-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.65rem 0.85rem;
+  background: #fafafa;
+  border: 1px solid #eee;
+  border-radius: 8px;
+  margin-bottom: 0.45rem;
+  font-size: 0.95rem;
+  color: #333333;
+}
+
+.tv-pooja-item .tv-pooja-price {
+  font-weight: 700;
+  color: #27ae60;
+}
+
+/* ── Expiry countdown ────────────────────────────────────────────────────── */
+
+.token-view-expiry {
+  margin: 0 2rem 1.25rem;
+  padding: 0.85rem 1rem;
+  border-radius: 10px;
+  text-align: center;
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+.token-view-expiry.expiry-ok {
+  background: #e8f8f0;
+  color: #1e8449;
+  border: 1px solid #a9dfbf;
+}
+
+.token-view-expiry.expiry-soon {
+  background: #fef9e7;
+  color: #9a7d0a;
+  border: 1px solid #f9e79f;
+}
+
+.token-view-expiry.expiry-done {
+  background: #fdedec;
+  color: #922b21;
+  border: 1px solid #f5b7b1;
+}
+
+/* ── Footer note ─────────────────────────────────────────────────────────── */
+
+.token-view-footer {
+  padding: 1rem 2rem 1.5rem;
+  text-align: center;
+  font-size: 0.8rem;
+  color: #aaa;
+  border-top: 1px solid #f0f0f0;
+}
+
+/* ── Responsive ──────────────────────────────────────────────────────────── */
+
+@media (max-width: 600px) {
+  .token-view-page {
+    padding: 1rem 0 3rem;
+  }
+
+  .token-view-card {
+    border-radius: 12px;
+    margin: 0 0.75rem;
+  }
+
+  .token-view-banner {
+    font-size: 1rem;
+    padding: 1rem 1.25rem;
+  }
+
+  .token-view-number {
+    font-size: 1.5rem;
+  }
+
+  .token-view-details,
+  .token-view-poojas,
+  .token-view-expiry,
+  .token-view-footer {
+    padding-left: 1.25rem;
+    padding-right: 1.25rem;
+  }
+
+  .token-view-expiry {
+    margin-left: 1.25rem;
+    margin-right: 1.25rem;
+  }
+}

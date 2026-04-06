@@ -1,6 +1,8 @@
 .admin-page {
   min-height: 100vh;
   background-color: #f5f5f5;
+  /* Force readable text regardless of the site's theme color settings */
+  color: #333333;
 }
 
 /* Admin is desktop-only: on small screens show overlay message and block interaction */
@@ -172,13 +174,14 @@
   padding: 1rem;
   text-align: left;
   font-weight: bold;
-  color: #333;
+  color: #333333;
   border-bottom: 2px solid #e0e0e0;
 }
 
 .admin-table td {
   padding: 1rem;
   border-bottom: 1px solid #e0e0e0;
+  color: #333333;
 }
 
 .admin-table tr:hover {

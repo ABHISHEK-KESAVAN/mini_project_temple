@@ -1,0 +1,246 @@
+/* ══════════════════════════════════════════════════════════════
+   LOADER — Premium Dark + Gold Temple Theme
+   ══════════════════════════════════════════════════════════════ */
+
+/* ── Full-page overlay loader ─────────────────────────────────── */
+.loader-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: radial-gradient(ellipse at center,
+    rgba(20, 14, 4, 0.97) 0%,
+    rgba(10, 7, 2, 0.99) 100%
+  );
+  animation: loaderFadeIn 0.25s ease both;
+}
+
+/* ── Inline / page-level loader (not fixed) ───────────────────── */
+.loader-inline {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 60vh;
+  width: 100%;
+  gap: 1.5rem;
+  animation: loaderFadeIn 0.3s ease both;
+}
+
+/* ── Spinner track + arc ──────────────────────────────────────── */
+.loader-spinner-wrap {
+  position: relative;
+  width: 80px;
+  height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Outer glow ring */
+.loader-ring {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  border: 3px solid rgba(212, 175, 55, 0.12);
+  border-top-color: #d4af37;
+  border-right-color: rgba(245, 215, 122, 0.6);
+  box-shadow:
+    0 0 18px rgba(212, 175, 55, 0.45),
+    0 0 38px rgba(212, 175, 55, 0.18),
+    inset 0 0 12px rgba(212, 175, 55, 0.06);
+  animation: loaderSpin 1.4s cubic-bezier(0.6, 0.15, 0.4, 0.85) infinite;
+}
+
+/* Inner counter-rotating ring */
+.loader-ring-inner {
+  position: absolute;
+  inset: 14px;
+  border-radius: 50%;
+  border: 2px solid rgba(212, 175, 55, 0.08);
+  border-bottom-color: rgba(212, 175, 55, 0.55);
+  animation: loaderSpinReverse 2.1s linear infinite;
+}
+
+/* Centre Om dot */
+.loader-om {
+  position: relative;
+  z-index: 2;
+  font-size: 1.6rem;
+  line-height: 1;
+  filter: drop-shadow(0 0 10px rgba(212, 175, 55, 0.9))
+          drop-shadow(0 0 22px rgba(212, 175, 55, 0.5));
+  animation: loaderOmPulse 2.4s ease-in-out infinite;
+  user-select: none;
+}
+
+/* ── Label text ───────────────────────────────────────────────── */
+.loader-label {
+  font-family: 'Poppins', 'Segoe UI', sans-serif;
+  font-size: 0.82rem;
+  font-weight: 400;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: rgba(212, 175, 55, 0.65);
+  animation: loaderLabelPulse 2s ease-in-out infinite;
+  margin-top: 0.25rem;
+}
+
+/* ── Gold shimmer bar (optional decoration) ───────────────────── */
+.loader-bar {
+  width: 120px;
+  height: 2px;
+  border-radius: 2px;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(212, 175, 55, 0.15) 20%,
+    #d4af37 50%,
+    rgba(212, 175, 55, 0.15) 80%,
+    transparent 100%
+  );
+  background-size: 200% 100%;
+  animation: loaderShimmer 1.6s linear infinite;
+}
+
+/* ── Fade-in wrapper for page content after load ──────────────── */
+.page-fade-in {
+  animation: pageFadeIn 0.55s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+/* ═══ Keyframes ══════════════════════════════════════════════════ */
+
+@keyframes loaderFadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes loaderSpin {
+  0%   { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+@keyframes loaderSpinReverse {
+  0%   { transform: rotate(0deg); }
+  100% { transform: rotate(-360deg); }
+}
+
+@keyframes loaderOmPulse {
+  0%, 100% {
+    filter: drop-shadow(0 0 8px rgba(212, 175, 55, 0.8))
+            drop-shadow(0 0 18px rgba(212, 175, 55, 0.4));
+    transform: scale(1);
+  }
+  50% {
+    filter: drop-shadow(0 0 16px rgba(212, 175, 55, 1))
+            drop-shadow(0 0 32px rgba(212, 175, 55, 0.7));
+    transform: scale(1.08);
+  }
+}
+
+@keyframes loaderLabelPulse {
+  0%, 100% { opacity: 0.55; }
+  50%       { opacity: 0.9; }
+}
+
+@keyframes loaderShimmer {
+  0%   { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+@keyframes pageFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ── Skeleton card loader ─────────────────────────────────────── */
+.skeleton-card {
+  background: linear-gradient(135deg, rgba(26, 20, 8, 0.92) 0%, rgba(18, 14, 4, 0.95) 100%);
+  border: 1px solid rgba(212, 175, 55, 0.15);
+  border-radius: 14px;
+  padding: 1.5rem;
+  overflow: hidden;
+  position: relative;
+}
+
+.skeleton-card::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(212, 175, 55, 0.06) 40%,
+    rgba(212, 175, 55, 0.12) 50%,
+    rgba(212, 175, 55, 0.06) 60%,
+    transparent 100%
+  );
+  background-size: 300% 100%;
+  animation: skeletonShimmer 1.8s linear infinite;
+}
+
+.skeleton-line {
+  height: 12px;
+  border-radius: 6px;
+  background: rgba(212, 175, 55, 0.12);
+  margin-bottom: 0.85rem;
+}
+
+.skeleton-line.wide   { width: 80%; }
+.skeleton-line.medium { width: 60%; }
+.skeleton-line.short  { width: 40%; }
+.skeleton-line.full   { width: 100%; }
+
+.skeleton-image {
+  width: 100%;
+  aspect-ratio: 4/3;
+  border-radius: 10px;
+  background: rgba(212, 175, 55, 0.08);
+  margin-bottom: 1rem;
+}
+
+.skeleton-circle {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  background: rgba(212, 175, 55, 0.1);
+  margin-bottom: 0.85rem;
+}
+
+.skeleton-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1.25rem;
+  margin-top: 1rem;
+}
+
+@keyframes skeletonShimmer {
+  0%   { background-position: 300% 0; }
+  100% { background-position: -300% 0; }
+}
+
+/* ── Responsive ──────────────────────────────────────────────── */
+@media (max-width: 600px) {
+  .loader-spinner-wrap {
+    width: 64px;
+    height: 64px;
+  }
+
+  .loader-om {
+    font-size: 1.3rem;
+  }
+
+  .loader-label {
+    font-size: 0.75rem;
+    letter-spacing: 0.18em;
+  }
+}

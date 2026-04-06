@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useCallback, useMemo, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import api from '../utils/api';
+import Loader from '../components/Loader';
 import './Home.css';
 
 const API_BASE = process.env.REACT_APP_API_URL || 'http://localhost:5000';
@@ -83,7 +84,7 @@ const Home = () => {
   }, [fetchHomeContent]);
 
   if (loading) {
-    return <div className="spinner"></div>;
+    return <Loader label="Preparing the sacred space…" />;
   }
 
   const heroBgUrl = heroUrls[slideIndex] ? getImageSrc(heroUrls[slideIndex]) : '';
@@ -97,7 +98,7 @@ const Home = () => {
   const activeAnnouncements = content?.announcements?.filter((a) => a.isActive) || [];
 
   return (
-    <div className="home-page">
+    <div className="home-page page-fade-in">
       {/* Hero Welcome Section — background cycles; overlay + content unchanged */}
       <section className="hero-section">
         <div

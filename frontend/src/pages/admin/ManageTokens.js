@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import api from '../../utils/api';
+import Loader from '../../components/Loader';
 import './AdminPages.css';
 
 const ManageTokens = () => {
@@ -69,7 +70,7 @@ const ManageTokens = () => {
   };
 
   if (loading) {
-    return <div className="spinner"></div>;
+    return <Loader label="Loading tokens…" />;
   }
 
   return (

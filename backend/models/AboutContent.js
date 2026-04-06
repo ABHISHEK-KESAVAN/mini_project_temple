@@ -1,9 +1,26 @@
 const mongoose = require('mongoose');
 
 const aboutContentSchema = new mongoose.Schema({
-  history: {
+  heroTitle: {
     type: String,
-    default: ''
+    default: 'About Our Temple'
+  },
+  heroSubtitle: {
+    type: String,
+    default: 'A Sacred Journey Through Devotion & Heritage'
+  },
+  hero: {
+    backgroundImage: {
+      type: String,
+      default: ''
+    }
+  },
+  history: {
+    type: mongoose.Schema.Types.Mixed,
+    default: () => ({
+      text: '',
+      image: ''
+    })
   },
   deityImportance: {
     type: String,

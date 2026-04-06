@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import api from '../utils/api';
+import Loader from '../components/Loader';
 import './Poojas.css';
 
 const API_BASE = process.env.REACT_APP_API_URL || 'http://localhost:5000';
@@ -57,11 +58,11 @@ const Poojas = () => {
   };
 
   if (loading) {
-    return <div className="spinner"></div>;
+    return <Loader label="Loading poojas…" />;
   }
 
   return (
-    <div className="poojas-page">
+    <div className="poojas-page page-fade-in">
       <div className="container">
         <h1 className="page-title">Available Poojas</h1>
         

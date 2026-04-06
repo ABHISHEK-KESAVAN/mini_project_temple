@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import api from '../utils/api';
+import Loader from '../components/Loader';
 import './Map.css';
 
 const Map = () => {
@@ -22,7 +23,7 @@ const Map = () => {
   };
 
   if (loading) {
-    return <div className="spinner"></div>;
+    return <Loader label="Loading location…" />;
   }
 
   const mapUrl = content 
@@ -30,7 +31,7 @@ const Map = () => {
     : null;
 
   return (
-    <div className="map-page">
+    <div className="map-page page-fade-in">
       <div className="container">
         <h1 className="page-title">Temple Location</h1>
 

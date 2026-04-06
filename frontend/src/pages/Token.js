@@ -198,13 +198,11 @@ const Token = () => {
               <div className="qr-code-section">
                 <h3>QR Code</h3>
                 <div className="qr-code">
-                  <QRCodeSVG value={JSON.stringify({
-                    tokenNumber: token.tokenNumber,
-                    devoteeName: token.devoteeName,
-                    mobileNumber: token.mobileNumber,
-                    totalAmount: token.totalAmount,
-                    expiresAt: token.expiresAt
-                  })} size={200} />
+                  <QRCodeSVG
+                    value={`${window.location.origin}/token/view/${token._id}`}
+                    size={200}
+                    level="M"
+                  />
                 </div>
               </div>
 

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import api from '../../utils/api';
+import Loader from '../../components/Loader';
 import './AdminPages.css';
 
 const ManageFooter = () => {
@@ -121,7 +122,7 @@ const ManageFooter = () => {
   };
 
   if (loading) {
-    return <div className="spinner"></div>;
+    return <Loader label="Loading footer settings…" />;
   }
 
   return (

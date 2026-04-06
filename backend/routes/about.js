@@ -3,6 +3,24 @@ const router = express.Router();
 const AboutContent = require('../models/AboutContent');
 const auth = require('../middleware/auth');
 
+const normalizeAboutContent = (content) => {
+  const source = content?.toObject ? content.toObject() : (content || {});
+  const history = typeof source.history === 'string'
+    ? { text: source.history, image: '' }
+    : {
+        text: source.history?.text || '',
+        image: source.history?.image || ''
+      };
+
+  return {
+    ...source,
+    hero: {
+      backgroundImage: source.hero?.backgroundImage || ''
+    },
+    history
+  };
+};
+
 // Get about content (public)
 router.get('/', async (req, res) => {
   try {
@@ -11,7 +29,7 @@ router.get('/', async (req, res) => {
       content = new AboutContent();
       await content.save();
     }
-    res.json(content);
+    res.json(normalizeAboutContent(content));
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
@@ -21,13 +39,15 @@ router.get('/', async (req, res) => {
 router.put('/', auth, async (req, res) => {
   try {
     let content = await AboutContent.findOne();
+    const payload = normalizeAboutContent(req.body);
+
     if (!content) {
-      content = new AboutContent(req.body);
+      content = new AboutContent(payload);
     } else {
-      Object.assign(content, req.body);
+      Object.assign(content, payload);
     }
     await content.save();
-    res.json(content);
+    res.json(normalizeAboutContent(content));
   } catch (error) {
     res.status(500).json({ message: error.message });
   }

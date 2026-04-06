@@ -123,9 +123,13 @@ body[data-card-style="wood"] .stat-card {
 
 body[data-card-style="wood"] .theme-card *,
 body[data-card-style="wood"] .home-block *,
+body[data-card-style="wood"] .pooja-card *,
+body[data-card-style="wood"] .announcement-card *,
 body[data-card-style="wood"] .admin-form *,
 body[data-card-style="wood"] .login-card *,
 body[data-card-style="wood"] .about-section *,
+body[data-card-style="wood"] .highlight-card *,
+body[data-card-style="wood"] .token-card *,
 body[data-card-style="wood"] .menu-card *,
 body[data-card-style="wood"] .stat-card * {
   color: inherit;
