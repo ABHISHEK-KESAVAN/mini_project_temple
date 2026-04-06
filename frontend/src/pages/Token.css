@@ -464,11 +464,31 @@
 }
 
 @media print {
-  .token-actions {
-    display: none;
+  @page {
+    size: A4 portrait;
+    margin: 8mm;
   }
-  
-  .navbar {
+
+  .navbar,
+  .footer,
+  .google-translate-wrapper,
+  .skiptranslate,
+  iframe.goog-te-banner-frame,
+  #google_translate_element {
+    display: none !important;
+  }
+
+  body {
+    background: #ffffff !important;
+    font-size: 11px;
+  }
+
+  .token-page > .container {
+    max-width: none;
+    padding: 0;
+  }
+
+  .token-actions {
     display: none;
   }
 
@@ -477,8 +497,90 @@
     background-color: white;
   }
 
+  .token-success h1 {
+    margin-bottom: 0.5rem;
+    font-size: 1.1rem;
+  }
+
   .token-card {
     box-shadow: none;
+    max-width: none;
+    border-radius: 0;
+    padding: 0.55rem;
+    page-break-inside: avoid;
+  }
+
+  .token-header {
+    margin-bottom: 0.75rem;
+    padding-bottom: 0.45rem;
+  }
+
+  .token-header h2,
+  .poojas-list h3,
+  .qr-code-section h3,
+  .instructions h3 {
+    margin-bottom: 0.4rem;
+    font-size: 0.88rem;
+  }
+
+  .token-number {
+    font-size: 1.45rem;
+    letter-spacing: 1px;
+  }
+
+  .token-details {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.35rem 0.5rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .detail-row {
+    margin-bottom: 0;
+    padding: 0.4rem 0.5rem;
+    gap: 0.25rem;
+    min-width: 0;
+  }
+
+  .detail-row .label,
+  .detail-row span:not(.label),
+  .pooja-item,
+  .instructions li {
+    font-size: 0.76rem;
+  }
+
+  .amount {
+    font-size: 0.95rem;
+  }
+
+  .poojas-list,
+  .qr-code-section,
+  .instructions {
+    margin-bottom: 0.75rem;
+    padding: 0.6rem;
+  }
+
+  .pooja-item {
+    padding: 0.45rem 0.55rem;
+    margin-bottom: 0.3rem;
+  }
+
+  .qr-code {
+    padding: 0.4rem;
+  }
+
+  .qr-code svg {
+    width: 115px !important;
+    height: 115px !important;
+  }
+
+  .instructions li {
+    padding: 0.18rem 0;
+    line-height: 1.3;
+  }
+
+  .instructions ul {
+    margin: 0;
   }
 }
 
