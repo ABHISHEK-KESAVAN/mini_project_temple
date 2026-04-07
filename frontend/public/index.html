@@ -23,17 +23,19 @@
       #google_translate_element {
         position: fixed;
         bottom: 18px;
-        right: 18px;
-        z-index: 2000;
+        left: 18px;
+        right: auto;
+        z-index: 1000;
         font-size: 0.8rem;
       }
 
       @media (max-width: 600px) {
         #google_translate_element {
           bottom: 12px;
-          right: 12px;
+          left: 12px;
+          right: auto;
           transform: scale(0.9);
-          transform-origin: bottom right;
+          transform-origin: bottom left;
         }
       }
 
@@ -87,4 +89,3 @@
     <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
   </body>
 </html>
-
