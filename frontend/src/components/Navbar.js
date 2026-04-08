@@ -1,10 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import api from '../utils/api';
+import api, { getUploadUrl } from '../utils/api';
 import './Navbar.css';
-
-const API_BASE = process.env.REACT_APP_API_URL || 'http://localhost:5000';
-const getImageSrc = (url) => (url && url.startsWith('/uploads')) ? `${API_BASE.replace(/\/api\/?$/, '')}${url}` : url;
 
 /**
  * Public navbar: logo (from Admin) left, nav links right. No Admin link – admin uses /admin/login.
@@ -32,7 +29,7 @@ const Navbar = () => {
         <Link to="/" className="navbar-logo" onClick={closeMenu}>
           {templeLogo ? (
             <>
-              <img src={getImageSrc(templeLogo)} alt={templeName} className="navbar-logo-img" onError={(e) => { e.target.style.display = 'none'; e.target.nextSibling?.classList.remove('navbar-fallback-hidden'); }} />
+              <img src={getUploadUrl(templeLogo)} alt={templeName} className="navbar-logo-img" onError={(e) => { e.target.style.display = 'none'; e.target.nextSibling?.classList.remove('navbar-fallback-hidden'); }} />
               <span className="navbar-logo-fallback navbar-fallback-hidden">🕉️ {templeName}</span>
             </>
           ) : (

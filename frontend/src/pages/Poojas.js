@@ -1,11 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import api from '../utils/api';
+import api, { getUploadUrl } from '../utils/api';
 import Loader from '../components/Loader';
 import './Poojas.css';
-
-const API_BASE = process.env.REACT_APP_API_URL || 'http://localhost:5000';
-const getImageSrc = (url) => (url && url.startsWith('/uploads')) ? `${API_BASE.replace(/\/api\/?$/, '')}${url}` : url;
 
 const Poojas = () => {
   const [poojas, setPoojas] = useState([]);
@@ -96,7 +93,7 @@ const Poojas = () => {
                 <div key={pooja._id} className={`pooja-card ${isSelected ? 'selected' : ''}`}>
                   {pooja.image && (
                     <img 
-                      src={getImageSrc(pooja.image)} 
+                      src={getUploadUrl(pooja.image)} 
                       alt={pooja.name} 
                       className="pooja-image"
                       onError={(e) => {

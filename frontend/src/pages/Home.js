@@ -1,11 +1,8 @@
 import React, { useState, useEffect, useCallback, useMemo, useRef } from 'react';
 import { Link } from 'react-router-dom';
-import api from '../utils/api';
+import api, { getUploadUrl } from '../utils/api';
 import Loader from '../components/Loader';
 import './Home.css';
-
-const API_BASE = process.env.REACT_APP_API_URL || 'http://localhost:5000';
-const getImageSrc = (url) => (url && url.startsWith('/uploads')) ? `${API_BASE.replace(/\/api\/?$/, '')}${url}` : url;
 
 /** When no hero images are configured, use a neutral temple-themed placeholder */
 const DEFAULT_HERO_FALLBACK =
@@ -87,7 +84,7 @@ const Home = () => {
     return <Loader label="Preparing the sacred space…" />;
   }
 
-  const heroBgUrl = heroUrls[slideIndex] ? getImageSrc(heroUrls[slideIndex]) : '';
+  const heroBgUrl = heroUrls[slideIndex] ? getUploadUrl(heroUrls[slideIndex]) : '';
   const heroTitle = content?.heroWelcomeTitle || content?.templeName || 'Welcome';
   const welcomeMessage = content?.welcomeMessage || 'May the divine light bring peace, prosperity, and blessings to you and your family.';
   const heroCtaText = content?.heroCtaText || 'View Poojas';
@@ -127,7 +124,7 @@ const Home = () => {
             <div className="about-image-wrap">
               {content?.aboutImage ? (
                 <img
-                  src={getImageSrc(content.aboutImage)}
+                  src={getUploadUrl(content.aboutImage)}
                   alt="Temple"
                   className="about-image"
                   onError={(e) => e.target.style.display = 'none'}
@@ -158,7 +155,7 @@ const Home = () => {
                   <div className="home-gallery-inner">
                     {banner.image ? (
                       <img
-                        src={getImageSrc(banner.image)}
+                        src={getUploadUrl(banner.image)}
                         alt={banner.title || `Gallery ${index + 1}`}
                         onError={(e) => {
                           e.target.style.display = 'none';
@@ -193,7 +190,7 @@ const Home = () => {
                   <Link to="/poojas" key={pooja._id} className="pooja-preview-card">
                     {pooja.image && (
                       <div className="pooja-preview-img" style={{ ['--card-aspect']: aspectRatio }}>
-                        <img src={getImageSrc(pooja.image)} alt={pooja.name} onError={(e) => e.target.style.display = 'none'} />
+                        <img src={getUploadUrl(pooja.image)} alt={pooja.name} onError={(e) => e.target.style.display = 'none'} />
                       </div>
                     )}
                     <div className="pooja-preview-body">

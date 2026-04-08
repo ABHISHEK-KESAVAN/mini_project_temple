@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import api from '../utils/api';
+import api, { getUploadUrl } from '../utils/api';
 import './ImageUpload.css';
 
 const ImageUpload = ({ value, onChange, label = 'Image', accept = 'image/*' }) => {
@@ -31,9 +31,9 @@ const ImageUpload = ({ value, onChange, label = 'Image', accept = 'image/*' }) =
 
       // Store the relative path (e.g. /uploads/image-xxx.jpg) so it works on any host
       const imageUrl = response.data.url;
-      const previewUrl = `${process.env.REACT_APP_API_URL || 'http://localhost:5000'}${imageUrl}`;
+      const previewUrl = getUploadUrl(imageUrl);
       setPreview(previewUrl);
-      onChange(previewUrl);
+      onChange(imageUrl);
       setUseUrl(false);
     } catch (error) {
       const serverMsg = error.response?.data?.message || error.message;

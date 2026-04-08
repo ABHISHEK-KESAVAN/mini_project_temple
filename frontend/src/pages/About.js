@@ -1,12 +1,7 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
-import api from '../utils/api';
+import api, { getUploadUrl } from '../utils/api';
 import Loader from '../components/Loader';
 import './About.css';
-
-const API_BASE = process.env.REACT_APP_API_URL || 'http://localhost:5000';
-const getImageSrc = (url) => (url && url.startsWith('/uploads'))
-  ? `${API_BASE.replace(/\/api\/?$/, '')}${url}`
-  : url;
 
 const AnimatedSection = ({ children, delay = 0, className = '' }) => {
   const ref = useRef(null);
@@ -61,8 +56,8 @@ const About = () => {
   }
 
   const timingIcons = { morning: '🌅', afternoon: '☀️', evening: '🌙' };
-  const heroBackgroundImage = getImageSrc(content?.hero?.backgroundImage || '');
-  const historyImage = getImageSrc(content?.history?.image || '');
+  const heroBackgroundImage = getUploadUrl(content?.hero?.backgroundImage || '');
+  const historyImage = getUploadUrl(content?.history?.image || '');
   const historyText = content?.history?.text || '';
 
   return (

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import api from '../utils/api';
+import api, { getUploadUrl } from '../utils/api';
 import Loader from '../components/Loader';
 import './Map.css';
 
@@ -25,11 +25,6 @@ const Map = () => {
   if (loading) {
     return <Loader label="Loading location…" />;
   }
-
-  const mapUrl = content 
-    ? `https://www.google.com/maps/embed/v1/place?key=YOUR_API_KEY&q=${content.latitude},${content.longitude}`
-    : null;
-
   return (
     <div className="map-page page-fade-in">
       <div className="container">
@@ -79,9 +74,7 @@ const Map = () => {
           <div className="inside-map-section">
             <h2>Inside Temple Navigation</h2>
             <img 
-              src={content.insideTempleMap.image.startsWith('/uploads') 
-                ? `http://localhost:5000${content.insideTempleMap.image}` 
-                : content.insideTempleMap.image} 
+              src={getUploadUrl(content.insideTempleMap.image)}
               alt="Inside Temple Map" 
               className="inside-map-image"
               onError={(e) => {

@@ -1,11 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import api from '../utils/api';
+import api, { getUploadUrl } from '../utils/api';
 import Loader from '../components/Loader';
 import './Gallery.css';
-
-const API_BASE = process.env.REACT_APP_API_URL || 'http://localhost:5000';
-const getImageSrc = (url) => (url && url.startsWith('/uploads')) ? `${API_BASE.replace(/\/api\/?$/, '')}${url}` : url;
 
 const Gallery = () => {
   const [content, setContent] = useState(null);
@@ -54,7 +51,7 @@ const Gallery = () => {
                 <div className="gallery-item-inner">
                   {banner.image ? (
                     <img
-                      src={getImageSrc(banner.image)}
+                      src={getUploadUrl(banner.image)}
                       alt={banner.title || `Gallery ${index + 1}`}
                       onError={(e) => {
                         e.target.style.display = 'none';

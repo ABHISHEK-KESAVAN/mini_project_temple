@@ -4,6 +4,7 @@
   "description": "Temple Management System with Admin Dashboard",
   "main": "server.js",
   "scripts": {
+    "start": "node backend/server.js",
     "dev": "concurrently \"npm run server\" \"npm run client\"",
     "server": "nodemon backend/server.js",
     "client": "cd frontend && npm start",
