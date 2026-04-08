@@ -34,6 +34,11 @@ app.use('/uploads', (req, res, next) => {
   next();
 }, express.static(uploadsDir));
 
+// Test route
+app.get("/", (req, res) => {
+  res.send("Temple Backend API is running 🚀");
+});
+
 // Routes
 app.use('/api/auth', require('./routes/auth'));
 app.use('/api/home', require('./routes/home'));
