@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import api from '../utils/api';
 import { buildKnowledgeBase, getChatbotReply } from '../utils/chatbot';
+import assistantImage from '../assets/chatbot-assistant.png';
 import './Chatbot.css';
 
 const quickPrompts = [
@@ -124,9 +125,12 @@ const Chatbot = () => {
       {isOpen && (
         <div className="chatbot-panel">
           <div className="chatbot-header">
-            <div>
+            <div className="chatbot-header-brand">
+              <img src={assistantImage} alt="Temple assistant" className="chatbot-avatar" />
+              <div>
               <p className="chatbot-kicker">Temple Assistant</p>
               <h3>Smart Help</h3>
+              </div>
             </div>
             <button
               type="button"
@@ -188,8 +192,11 @@ const Chatbot = () => {
         aria-expanded={isOpen}
         aria-label="Open temple assistant"
       >
-        <span>Temple Assistant</span>
-        <strong>Chat</strong>
+        <img src={assistantImage} alt="" className="chatbot-avatar chatbot-avatar-toggle" aria-hidden="true" />
+        <span className="chatbot-toggle-copy">
+          <span>Temple Assistant</span>
+          <strong>Chat</strong>
+        </span>
       </button>
     </div>
   );

@@ -24,22 +24,43 @@
   animation: gentleFloat 5.8s ease-in-out infinite;
 }
 
-.chatbot-toggle span {
+.chatbot-toggle-copy {
+  display: grid;
+  gap: 0.18rem;
+  text-align: left;
+}
+
+.chatbot-toggle-copy span {
   font-size: 0.86rem;
   font-weight: 700;
   letter-spacing: 0.08em;
   text-transform: uppercase;
 }
 
-.chatbot-toggle strong {
+.chatbot-toggle-copy strong {
   display: inline-flex;
   align-items: center;
-  justify-content: center;
-  min-width: 62px;
-  min-height: 40px;
-  padding: 0 0.9rem;
-  border-radius: 14px;
-  background: rgba(255, 255, 255, 0.16);
+  justify-content: flex-start;
+  min-height: 22px;
+  padding: 0;
+  border-radius: 0;
+  background: transparent;
+  font-size: 1rem;
+}
+
+.chatbot-avatar {
+  width: 52px;
+  height: 52px;
+  border-radius: 18px;
+  object-fit: cover;
+  box-shadow: 0 12px 24px -18px rgba(0, 0, 0, 0.55);
+  border: 2px solid rgba(255, 255, 255, 0.35);
+  flex-shrink: 0;
+}
+
+.chatbot-avatar-toggle {
+  width: 56px;
+  height: 56px;
 }
 
 .chatbot-panel {
@@ -66,6 +87,12 @@
   background:
     radial-gradient(circle at top right, rgba(255, 255, 255, 0.16), transparent 22%),
     var(--header-background);
+}
+
+.chatbot-header-brand {
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
 }
 
 .chatbot-kicker {
