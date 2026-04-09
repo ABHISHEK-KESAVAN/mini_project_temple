@@ -63,9 +63,20 @@ const AdminDashboard = () => {
             <h1>Admin Dashboard</h1>
             <p className="admin-subtitle">Signed in as {currentUser?.username || 'admin'}</p>
           </div>
-          <button onClick={handleLogout} className="btn btn-danger">
-            Logout
-          </button>
+          <div className="admin-actions">
+            <Link to="/admin/profile" className="admin-profile-chip">
+              <span className="admin-profile-avatar">
+                {(currentUser?.username || 'A').slice(0, 1).toUpperCase()}
+              </span>
+              <span className="admin-profile-copy">
+                <strong>{currentUser?.username || 'admin'}</strong>
+                <small>Profile</small>
+              </span>
+            </Link>
+            <button onClick={handleLogout} className="btn btn-danger">
+              Logout
+            </button>
+          </div>
         </div>
       </div>
 
