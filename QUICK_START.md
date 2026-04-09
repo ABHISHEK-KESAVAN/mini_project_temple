@@ -68,6 +68,7 @@ The **Admin** link is **not shown** on the website so normal visitors cannot see
 - **Production:** `https://your-domain.com/admin/login`
 
 Use the **username and password** you created in Step 4. After login you can change settings, manage content, and manage tokens from the admin panel.
+You can also open **`/admin/profile`** from the dashboard to change the admin username or password securely after logging in.
 
 ## Step 6: Access the Application
 

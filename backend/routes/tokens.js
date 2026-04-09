@@ -7,6 +7,7 @@ const TokenSettings = require('../models/TokenSettings');
 const Pooja = require('../models/Pooja');
 const QRCode = require('qrcode');
 const auth = require('../middleware/auth');
+const requireAdmin = require('../middleware/requireAdmin');
 const { isNonEmptyString, isValidIndianMobile10, isValidObjectId, badRequest, clampString } = require('../utils/validate');
 
 const DEFAULTS = { limitType: 'day', limitValue: 500, expiryMinutes: 120 };
@@ -138,7 +139,7 @@ router.post('/', async (req, res) => {
 });
 
 // Get all tokens (admin only)
-router.get('/', auth, async (req, res) => {
+router.get('/', auth, requireAdmin, async (req, res) => {
   try {
     const { status, date } = req.query;
     let query = {};
@@ -178,7 +179,7 @@ router.get('/', auth, async (req, res) => {
 });
 
 // Get dashboard stats (admin only) - must be before GET /:id
-router.get('/stats/dashboard', auth, async (req, res) => {
+router.get('/stats/dashboard', auth, requireAdmin, async (req, res) => {
   try {
     const totalTokens = await Token.countDocuments();
     const pendingTokens = await Token.countDocuments({ status: 'pending' });
@@ -207,7 +208,7 @@ router.get('/stats/dashboard', auth, async (req, res) => {
 });
 
 // Verify token by token number
-router.get('/verify/:tokenNumber', auth, async (req, res) => {
+router.get('/verify/:tokenNumber', auth, requireAdmin, async (req, res) => {
   try {
     let token = await Token.findOne({ tokenNumber: req.params.tokenNumber })
       .populate('poojas.poojaId');
@@ -236,7 +237,7 @@ router.get('/:id', async (req, res) => {
 });
 
 // Mark token as used (admin only)
-router.put('/:id/use', auth, async (req, res) => {
+router.put('/:id/use', auth, requireAdmin, async (req, res) => {
   try {
     const tokenDoc = await Token.findById(req.params.id);
     if (!tokenDoc) {
@@ -264,33 +265,7 @@ router.put('/:id/use', auth, async (req, res) => {
 });
 
 // Update token status (admin only) – for corrections (pending/cancelled)
-router.put('/:id/status', auth, async (req, res) => {
-  try {
-    const { status } = req.body;
-    const allowedStatuses = ['pending', 'cancelled'];
-    if (!allowedStatuses.includes(status)) {
-      return res.status(400).json({ message: 'Invalid status. Only pending or cancelled are allowed here.' });
-    }
-
-    const tokenDoc = await Token.findById(req.params.id);
-    if (!tokenDoc) {
-      return res.status(404).json({ message: 'Token not found' });
-    }
-
-    tokenDoc.status = status;
-    if (status !== 'used') {
-      tokenDoc.usedAt = undefined;
-    }
-
-    const token = await tokenDoc.save();
-    res.json(token);
-  } catch (error) {
-    res.status(500).json({ message: error.message });
-  }
-});
-
-// Update token status (admin only) – for corrections (pending/cancelled)
-router.put('/:id/status', auth, async (req, res) => {
+router.put('/:id/status', auth, requireAdmin, async (req, res) => {
   try {
     const { status } = req.body;
     const allowedStatuses = ['pending', 'cancelled'];

@@ -1,4 +1,5 @@
 const jwt = require('jsonwebtoken');
+const { getJwtSecret } = require('../utils/jwt');
 
 const auth = (req, res, next) => {
   try {
@@ -12,8 +13,7 @@ const auth = (req, res, next) => {
       return res.status(401).json({ message: 'No token, authorization denied' });
     }
 
-    const secret = process.env.JWT_SECRET || 'your_secret_key_here';
-    const decoded = jwt.verify(token, secret);
+    const decoded = jwt.verify(token, getJwtSecret());
     req.user = decoded;
     next();
   } catch (error) {

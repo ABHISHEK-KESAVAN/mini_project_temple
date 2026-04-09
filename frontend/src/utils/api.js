@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { clearSession, getStoredToken } from './session';
 
 // Support both CRA (process.env) and Vite (import.meta.env) for environment variables
 // This makes the frontend fully production-ready and deployment flexible (Vercel/Netlify)
@@ -42,7 +43,7 @@ export const getUploadUrl = (url) => {
 // ── Request interceptor ──────────────────────────────────────────────────────
 api.interceptors.request.use(
   (config) => {
-    const token = localStorage.getItem('token');
+    const token = getStoredToken();
     if (token) {
       config.headers.Authorization = `Bearer ${token}`;
     }
@@ -84,8 +85,7 @@ api.interceptors.response.use(
       const isLoginRequest = url.includes('/auth/login') || url.includes('/auth/register');
       if (!isLoginRequest) {
         console.warn('[API] Clearing expired session and redirecting to login…');
-        localStorage.removeItem('token');
-        localStorage.removeItem('user');
+        clearSession();
         window.location.href = '/admin/login';
       }
     } 

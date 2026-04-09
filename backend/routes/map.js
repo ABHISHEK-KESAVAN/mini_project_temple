@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const MapContent = require('../models/MapContent');
 const auth = require('../middleware/auth');
+const requireAdmin = require('../middleware/requireAdmin');
 const { isNonEmptyString, badRequest } = require('../utils/validate');
 
 // Get map content (public)
@@ -23,7 +24,7 @@ router.get('/', async (req, res) => {
 });
 
 // Update map content (admin only)
-router.put('/', auth, async (req, res) => {
+router.put('/', auth, requireAdmin, async (req, res) => {
   try {
     const errors = [];
     if (!isNonEmptyString(req.body.templeAddress)) {

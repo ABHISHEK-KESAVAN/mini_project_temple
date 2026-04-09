@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const TokenSettings = require('../models/TokenSettings');
 const auth = require('../middleware/auth');
+const requireAdmin = require('../middleware/requireAdmin');
 const { badRequest } = require('../utils/validate');
 
 const DEFAULTS = {
@@ -28,7 +29,7 @@ router.get('/token', async (req, res) => {
 });
 
 // Update token settings (admin only)
-router.put('/token', auth, async (req, res) => {
+router.put('/token', auth, requireAdmin, async (req, res) => {
   try {
     const { limitType, limitValue, expiryMinutes } = req.body;
     const errors = [];

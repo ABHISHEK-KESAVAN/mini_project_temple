@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import api from '../../utils/api';
+import { setSession } from '../../utils/session';
 import './AdminLogin.css';
 
 const AdminLogin = () => {
@@ -39,8 +40,7 @@ const AdminLogin = () => {
 
     try {
       const response = await api.post('/auth/login', formData);
-      localStorage.setItem('token', response.data.token);
-      localStorage.setItem('user', JSON.stringify(response.data.user));
+      setSession(response.data);
       navigate('/admin');
     } catch (err) {
       const data = err.response?.data;

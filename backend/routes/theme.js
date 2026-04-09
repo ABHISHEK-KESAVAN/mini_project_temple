@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const Theme = require('../models/Theme');
 const auth = require('../middleware/auth');
+const requireAdmin = require('../middleware/requireAdmin');
 
 // Get theme (public)
 router.get('/', async (req, res) => {
@@ -18,7 +19,7 @@ router.get('/', async (req, res) => {
 });
 
 // Update theme (admin only)
-router.put('/', auth, async (req, res) => {
+router.put('/', auth, requireAdmin, async (req, res) => {
   try {
     let theme = await Theme.findOne();
     if (!theme) {

@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const Pooja = require('../models/Pooja');
 const auth = require('../middleware/auth');
+const requireAdmin = require('../middleware/requireAdmin');
 const { isNonEmptyString, isValidUrlOrUploadPath, badRequest, clampString } = require('../utils/validate');
 
 // Get all poojas (public - only active ones)
@@ -15,7 +16,7 @@ router.get('/', async (req, res) => {
 });
 
 // Get all poojas including inactive (admin only)
-router.get('/all', auth, async (req, res) => {
+router.get('/all', auth, requireAdmin, async (req, res) => {
   try {
     const poojas = await Pooja.find().sort({ createdAt: -1 });
     res.json(poojas);
@@ -38,7 +39,7 @@ router.get('/:id', async (req, res) => {
 });
 
 // Create pooja (admin only)
-router.post('/', auth, async (req, res) => {
+router.post('/', auth, requireAdmin, async (req, res) => {
   try {
     const { name, description, timing, price, isActive, image } = req.body;
     const errors = [];
@@ -67,7 +68,7 @@ router.post('/', auth, async (req, res) => {
 });
 
 // Update pooja (admin only)
-router.put('/:id', auth, async (req, res) => {
+router.put('/:id', auth, requireAdmin, async (req, res) => {
   try {
     const { name, description, timing, price, isActive, image } = req.body;
     const errors = [];
@@ -105,7 +106,7 @@ router.put('/:id', auth, async (req, res) => {
 });
 
 // Delete pooja (admin only)
-router.delete('/:id', auth, async (req, res) => {
+router.delete('/:id', auth, requireAdmin, async (req, res) => {
   try {
     const pooja = await Pooja.findByIdAndDelete(req.params.id);
     if (!pooja) {
