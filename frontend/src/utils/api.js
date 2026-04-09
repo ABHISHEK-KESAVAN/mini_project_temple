@@ -3,16 +3,24 @@ import axios from 'axios';
 // Support both CRA (process.env) and Vite (import.meta.env) for environment variables
 // This makes the frontend fully production-ready and deployment flexible (Vercel/Netlify)
 const getApiUrl = () => {
-  // 1. Check for Vite environment variable (VITE_API_URL)
-  if (typeof import.meta !== 'undefined' && import.meta.env && import.meta.env.VITE_API_URL) {
-    return import.meta.env.VITE_API_URL;
-  }
-  // 2. Check for CRA environment variable (REACT_APP_API_URL)
-  if (typeof process !== 'undefined' && process.env && process.env.REACT_APP_API_URL) {
-    return process.env.REACT_APP_API_URL;
-  }
-  // 3. Fallback to Localhost for development
-  return 'http://localhost:5000/api';
+  let url = null;
+  // 1. Try Vite
+  try {
+    if (typeof import.meta !== 'undefined' && import.meta.env && import.meta.env.VITE_API_URL) {
+      url = import.meta.env.VITE_API_URL;
+    }
+  } catch (e) {}
+
+  // 2. Try CRA (needs try-catch because if Vite is used, process is undefined and will throw)
+  // We don't use 'typeof process' because Webpack statically replaces the exact string 'process.env.REACT_APP_API_URL'
+  try {
+    const craUrl = process.env.REACT_APP_API_URL;
+    if (craUrl) {
+      url = craUrl;
+    }
+  } catch (e) {}
+
+  return url || 'http://localhost:5000/api';
 };
 
 export const API_URL = getApiUrl();
