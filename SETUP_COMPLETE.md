@@ -36,7 +36,7 @@ I've created the following batch files to make it easy to start your application
 
 ## Current Configuration
 
-- **Database**: `mini_project` (mongodb://localhost:27017/mini_project)
+- **Database**: `temple_management` (mongodb://localhost:27017/temple_management)
 - **Backend Port**: 5000
 - **Frontend Port**: 3000
 - **Admin User**: Created (username: admin, password: admin123)

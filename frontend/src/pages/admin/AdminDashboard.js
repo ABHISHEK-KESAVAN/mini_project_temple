@@ -6,23 +6,23 @@ import { clearSession, getStoredUser } from '../../utils/session';
 import './AdminDashboard.css';
 
 const statCards = [
-  { key: 'totalTokens', title: 'Total Tokens', icon: 'TK' },
-  { key: 'pendingTokens', title: 'Pending Tokens', icon: 'PD' },
-  { key: 'usedTokens', title: 'Used Tokens', icon: 'UD' },
-  { key: 'todayTokens', title: "Today's Tokens", icon: 'TD' }
+  { key: 'totalTokens', title: 'Total Tokens', icon: '🎫' },
+  { key: 'pendingTokens', title: 'Pending Tokens', icon: '⏳' },
+  { key: 'usedTokens', title: 'Used Tokens', icon: '✅' },
+  { key: 'todayTokens', title: "Today's Tokens", icon: '📅' }
 ];
 
 const managementLinks = [
-  { to: '/admin/home', icon: 'HM', title: 'Manage Home Page', description: 'Edit temple name, banners, announcements' },
-  { to: '/admin/about', icon: 'AB', title: 'Manage About Page', description: 'Edit history, timings, rules' },
-  { to: '/admin/poojas', icon: 'PJ', title: 'Manage Poojas', description: 'Add, edit, or remove poojas' },
-  { to: '/admin/tokens', icon: 'TK', title: 'Manage Tokens', description: 'View and verify tokens' },
-  { to: '/admin/token-settings', icon: 'TS', title: 'Token Limit and Expiry', description: 'Set daily or hourly limit and token validity' },
-  { to: '/admin/map', icon: 'MP', title: 'Manage Map', description: 'Update temple location' },
-  { to: '/admin/contact', icon: 'CT', title: 'Manage Contact', description: 'Update contact information' },
-  { to: '/admin/footer', icon: 'FT', title: 'Manage Footer', description: 'Update footer content and links' },
-  { to: '/admin/theme', icon: 'TH', title: 'Manage Theme and Colors', description: 'Customize website colors' },
-  { to: '/admin/profile', icon: 'PR', title: 'Admin Profile', description: 'Change your username and password securely' }
+  { to: '/admin/home', icon: '🏠', title: 'Manage Home Page', description: 'Edit temple name, banners, announcements' },
+  { to: '/admin/about', icon: '📖', title: 'Manage About Page', description: 'Edit history, timings, rules' },
+  { to: '/admin/poojas', icon: '📿', title: 'Manage Poojas', description: 'Add, edit, or remove poojas' },
+  { to: '/admin/tokens', icon: '🎫', title: 'Manage Tokens', description: 'View and verify tokens' },
+  { to: '/admin/token-settings', icon: '⚙️', title: 'Token Limit and Expiry', description: 'Set daily or hourly limit and token validity' },
+  { to: '/admin/map', icon: '📍', title: 'Manage Map', description: 'Update temple location' },
+  { to: '/admin/contact', icon: '📞', title: 'Manage Contact', description: 'Update contact information' },
+  { to: '/admin/footer', icon: '📄', title: 'Manage Footer', description: 'Update footer content and links' },
+  { to: '/admin/theme', icon: '🎨', title: 'Manage Theme and Colors', description: 'Customize website colors' },
+  { to: '/admin/profile', icon: '👤', title: 'Admin Profile', description: 'Change your username and password securely' }
 ];
 
 const AdminDashboard = () => {
@@ -81,10 +81,10 @@ const AdminDashboard = () => {
             </div>
           ))}
           <div className="stat-card">
-            <div className="stat-icon">RS</div>
+            <div className="stat-icon">💰</div>
             <div className="stat-content">
               <h3>Total Revenue</h3>
-              <p className="stat-number">Rs {stats?.totalRevenue || 0}</p>
+              <p className="stat-number">₹{stats?.totalRevenue || 0}</p>
             </div>
           </div>
         </div>

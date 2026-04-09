@@ -51,6 +51,26 @@
   border-left: 4px solid #c33;
 }
 
+.login-help {
+  margin-top: 1.5rem;
+  padding: 1rem 1.1rem;
+  border-radius: 8px;
+  background: #f5f7ff;
+  border: 1px solid #d8e0ff;
+  color: #374151;
+}
+
+.login-help strong {
+  display: block;
+  margin-bottom: 0.4rem;
+}
+
+.login-help p {
+  margin: 0;
+  line-height: 1.5;
+  font-size: 0.92rem;
+}
+
 .back-link {
   text-align: center;
   margin-top: 1.5rem;
