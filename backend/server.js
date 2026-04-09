@@ -21,22 +21,26 @@ if (!fs.existsSync(uploadsDir)) {
 }
 
 // Ensure CORS is properly configured for Vercel/Production
-// Split origins if multiple are provided via comma in environment variable
-const allowedOrigins = process.env.FRONTEND_URL 
+
+const allowedOrigins = process.env.FRONTEND_URL
   ? process.env.FRONTEND_URL.split(',').map(url => url.trim())
-  : ['http://localhost:3000', 'http://localhost:5173']; // 5173 is Vite default
+  : [
+      'http://localhost:3000',
+      'http://localhost:5173',
+      'https://mini-project-temple.vercel.app' // ✅ ADD YOUR VERCEL URL HERE
+    ];
 
 app.use(cors({
   origin: function (origin, callback) {
-    // allow requests with no origin (like mobile apps or curl requests)
+    // Allow requests with no origin (like Postman, mobile apps)
     if (!origin) return callback(null, true);
-    
-    if (allowedOrigins.indexOf(origin) === -1 && !allowedOrigins.includes('*')) {
-      var msg = 'The CORS policy for this site does not allow access from the specified Origin.';
-      return callback(new Error(msg), false);
-    }
-    return callback(null, true);
-  },
+
+    if (allowedOrigins.includes(origin) || allowedOrigins.includes('*')) {
+      return callback(null, true);
+    } else {
+      console.error('❌ CORS blocked for:', origin);
+      return callback(new Error('CORS not allowed'), false);
+    } },
   credentials: true,
 }));
 
