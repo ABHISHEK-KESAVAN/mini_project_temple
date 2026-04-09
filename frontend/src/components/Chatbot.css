@@ -10,66 +10,21 @@
 }
 
 .chatbot-toggle {
-  position: relative;
   display: inline-flex;
   align-items: center;
-  gap: 0.75rem;
-  min-height: 74px;
-  padding: 0.75rem 1.15rem 0.75rem 0.75rem;
-  border: 1px solid rgba(255, 255, 255, 0.16);
-  border-radius: 999px;
-  background: linear-gradient(135deg, rgba(81, 34, 167, 0.9), rgba(46, 72, 184, 0.88));
-  color: #ffffff;
-  cursor: pointer;
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  box-shadow: 0 22px 48px -28px rgba(0, 0, 0, 0.45);
-  animation: gentleFloat 5.8s ease-in-out infinite;
-}
-
-.chatbot-toggle::after {
-  content: '';
-  position: absolute;
-  left: 1.25rem;
-  bottom: -0.35rem;
-  width: 16px;
-  height: 16px;
-  border-radius: 0 0 12px 0;
-  background: rgba(80, 38, 169, 0.82);
-  transform: rotate(42deg);
-  z-index: -1;
-}
-
-.chatbot-toggle-copy {
-  display: grid;
-  gap: 0.08rem;
-  text-align: left;
-}
-
-.chatbot-toggle-copy span {
-  font-size: 0.78rem;
-  font-weight: 700;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  color: rgba(255, 255, 255, 0.84);
-}
-
-.chatbot-toggle-copy strong {
-  display: inline-flex;
-  align-items: center;
-  justify-content: flex-start;
-  min-height: 22px;
+  justify-content: center;
   padding: 0;
-  border-radius: 0;
+  border: 0;
+  border-radius: 50%;
   background: transparent;
-  font-size: 1.18rem;
-  font-weight: 800;
+  cursor: pointer;
+  animation: gentleFloat 5.8s ease-in-out infinite;
 }
 
 .chatbot-avatar {
   width: 52px;
   height: 52px;
-  border-radius: 18px;
+  border-radius: 50%;
   object-fit: cover;
   box-shadow: 0 12px 24px -18px rgba(0, 0, 0, 0.55);
   border: 2px solid rgba(255, 255, 255, 0.35);
@@ -77,13 +32,10 @@
 }
 
 .chatbot-avatar-toggle {
-  width: 60px;
-  height: 60px;
-  padding: 0.25rem;
-  border-radius: 50%;
-  background: rgba(255, 255, 255, 0.92);
-  border: 3px solid rgba(255, 255, 255, 0.64);
-  box-shadow: 0 14px 24px -18px rgba(0, 0, 0, 0.6);
+  width: 72px;
+  height: 72px;
+  border: 3px solid rgba(255, 255, 255, 0.94);
+  box-shadow: 0 18px 34px -20px rgba(0, 0, 0, 0.45);
 }
 
 .chatbot-panel {
@@ -281,9 +233,7 @@
     align-items: stretch;
   }
   .chatbot-toggle {
-    justify-content: space-between;
-    min-height: 68px;
-    padding-right: 1rem;
+    align-self: flex-end;
   }
   .chatbot-panel {
     width: 100%;

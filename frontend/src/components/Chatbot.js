@@ -193,10 +193,6 @@ const Chatbot = () => {
         aria-label="Open temple assistant"
       >
         <img src={assistantImage} alt="" className="chatbot-avatar chatbot-avatar-toggle" aria-hidden="true" />
-        <span className="chatbot-toggle-copy">
-          <span>Temple Assistant</span>
-          <strong>Chat</strong>
-        </span>
       </button>
     </div>
   );
