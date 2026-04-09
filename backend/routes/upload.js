@@ -2,10 +2,11 @@ const express = require('express');
 const router = express.Router();
 const upload = require('../middleware/upload');
 const auth = require('../middleware/auth');
+const requireAdmin = require('../middleware/requireAdmin');
 const path = require('path');
 
 // Single image upload (admin only)
-router.post('/image', auth, (req, res, next) => {
+router.post('/image', auth, requireAdmin, (req, res, next) => {
   upload.single('image')(req, res, (err) => {
     if (err) {
       console.error('Multer error:', err.message);
@@ -35,7 +36,7 @@ router.post('/image', auth, (req, res, next) => {
 });
 
 // Multiple images upload (admin only)
-router.post('/images', auth, upload.array('images', 10), (req, res) => {
+router.post('/images', auth, requireAdmin, upload.array('images', 10), (req, res) => {
   try {
     if (!req.files || req.files.length === 0) {
       return res.status(400).json({ message: 'No files uploaded' });

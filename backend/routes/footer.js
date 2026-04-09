@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const FooterContent = require('../models/FooterContent');
 const auth = require('../middleware/auth');
+const requireAdmin = require('../middleware/requireAdmin');
 const { isValidEmail, badRequest } = require('../utils/validate');
 
 // Get footer content (public)
@@ -19,7 +20,7 @@ router.get('/', async (req, res) => {
 });
 
 // Update footer content (admin only)
-router.put('/', auth, async (req, res) => {
+router.put('/', auth, requireAdmin, async (req, res) => {
   try {
     const errors = [];
     

@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const AboutContent = require('../models/AboutContent');
 const auth = require('../middleware/auth');
+const requireAdmin = require('../middleware/requireAdmin');
 
 const normalizeAboutContent = (content) => {
   const source = content?.toObject ? content.toObject() : (content || {});
@@ -36,7 +37,7 @@ router.get('/', async (req, res) => {
 });
 
 // Update about content (admin only)
-router.put('/', auth, async (req, res) => {
+router.put('/', auth, requireAdmin, async (req, res) => {
   try {
     let content = await AboutContent.findOne();
     const payload = normalizeAboutContent(req.body);

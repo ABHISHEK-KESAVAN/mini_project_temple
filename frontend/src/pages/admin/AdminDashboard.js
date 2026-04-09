@@ -1,13 +1,35 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import api from '../../utils/api';
 import Loader from '../../components/Loader';
+import api from '../../utils/api';
+import { clearSession, getStoredUser } from '../../utils/session';
 import './AdminDashboard.css';
+
+const statCards = [
+  { key: 'totalTokens', title: 'Total Tokens', icon: 'TK' },
+  { key: 'pendingTokens', title: 'Pending Tokens', icon: 'PD' },
+  { key: 'usedTokens', title: 'Used Tokens', icon: 'UD' },
+  { key: 'todayTokens', title: "Today's Tokens", icon: 'TD' }
+];
+
+const managementLinks = [
+  { to: '/admin/home', icon: 'HM', title: 'Manage Home Page', description: 'Edit temple name, banners, announcements' },
+  { to: '/admin/about', icon: 'AB', title: 'Manage About Page', description: 'Edit history, timings, rules' },
+  { to: '/admin/poojas', icon: 'PJ', title: 'Manage Poojas', description: 'Add, edit, or remove poojas' },
+  { to: '/admin/tokens', icon: 'TK', title: 'Manage Tokens', description: 'View and verify tokens' },
+  { to: '/admin/token-settings', icon: 'TS', title: 'Token Limit and Expiry', description: 'Set daily or hourly limit and token validity' },
+  { to: '/admin/map', icon: 'MP', title: 'Manage Map', description: 'Update temple location' },
+  { to: '/admin/contact', icon: 'CT', title: 'Manage Contact', description: 'Update contact information' },
+  { to: '/admin/footer', icon: 'FT', title: 'Manage Footer', description: 'Update footer content and links' },
+  { to: '/admin/theme', icon: 'TH', title: 'Manage Theme and Colors', description: 'Customize website colors' },
+  { to: '/admin/profile', icon: 'PR', title: 'Admin Profile', description: 'Change your username and password securely' }
+];
 
 const AdminDashboard = () => {
   const [stats, setStats] = useState(null);
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
+  const currentUser = getStoredUser();
 
   useEffect(() => {
     fetchStats();
@@ -25,20 +47,22 @@ const AdminDashboard = () => {
   };
 
   const handleLogout = () => {
-    localStorage.removeItem('token');
-    localStorage.removeItem('user');
+    clearSession();
     navigate('/admin/login');
   };
 
   if (loading) {
-    return <Loader label="Loading dashboard…" />;
+    return <Loader label="Loading dashboard..." />;
   }
 
   return (
     <div className="admin-dashboard">
       <div className="admin-navbar">
         <div className="admin-navbar-container">
-          <h1>Admin Dashboard</h1>
+          <div>
+            <h1>Admin Dashboard</h1>
+            <p className="admin-subtitle">Signed in as {currentUser?.username || 'admin'}</p>
+          </div>
           <button onClick={handleLogout} className="btn btn-danger">
             Logout
           </button>
@@ -47,39 +71,20 @@ const AdminDashboard = () => {
 
       <div className="container">
         <div className="stats-grid">
-          <div className="stat-card">
-            <div className="stat-icon">🎫</div>
-            <div className="stat-content">
-              <h3>Total Tokens</h3>
-              <p className="stat-number">{stats?.totalTokens || 0}</p>
+          {statCards.map((card) => (
+            <div key={card.key} className="stat-card">
+              <div className="stat-icon">{card.icon}</div>
+              <div className="stat-content">
+                <h3>{card.title}</h3>
+                <p className="stat-number">{stats?.[card.key] || 0}</p>
+              </div>
             </div>
-          </div>
+          ))}
           <div className="stat-card">
-            <div className="stat-icon">⏳</div>
-            <div className="stat-content">
-              <h3>Pending Tokens</h3>
-              <p className="stat-number">{stats?.pendingTokens || 0}</p>
-            </div>
-          </div>
-          <div className="stat-card">
-            <div className="stat-icon">✅</div>
-            <div className="stat-content">
-              <h3>Used Tokens</h3>
-              <p className="stat-number">{stats?.usedTokens || 0}</p>
-            </div>
-          </div>
-          <div className="stat-card">
-            <div className="stat-icon">📅</div>
-            <div className="stat-content">
-              <h3>Today's Tokens</h3>
-              <p className="stat-number">{stats?.todayTokens || 0}</p>
-            </div>
-          </div>
-          <div className="stat-card">
-            <div className="stat-icon">💰</div>
+            <div className="stat-icon">RS</div>
             <div className="stat-content">
               <h3>Total Revenue</h3>
-              <p className="stat-number">₹{stats?.totalRevenue || 0}</p>
+              <p className="stat-number">Rs {stats?.totalRevenue || 0}</p>
             </div>
           </div>
         </div>
@@ -87,51 +92,13 @@ const AdminDashboard = () => {
         <div className="admin-menu">
           <h2>Management Options</h2>
           <div className="menu-grid">
-            <Link to="/admin/home" className="menu-card">
-              <div className="menu-icon">🏠</div>
-              <h3>Manage Home Page</h3>
-              <p>Edit temple name, banners, announcements</p>
-            </Link>
-            <Link to="/admin/about" className="menu-card">
-              <div className="menu-icon">📖</div>
-              <h3>Manage About Page</h3>
-              <p>Edit history, timings, rules</p>
-            </Link>
-            <Link to="/admin/poojas" className="menu-card">
-              <div className="menu-icon">📿</div>
-              <h3>Manage Poojas</h3>
-              <p>Add, edit, or remove poojas</p>
-            </Link>
-            <Link to="/admin/tokens" className="menu-card">
-              <div className="menu-icon">🎫</div>
-              <h3>Manage Tokens</h3>
-              <p>View and verify tokens</p>
-            </Link>
-            <Link to="/admin/token-settings" className="menu-card">
-              <div className="menu-icon">⚙️</div>
-              <h3>Token Limit & Expiry</h3>
-              <p>Set daily/hourly limit and token validity</p>
-            </Link>
-            <Link to="/admin/map" className="menu-card">
-              <div className="menu-icon">📍</div>
-              <h3>Manage Map</h3>
-              <p>Update temple location</p>
-            </Link>
-            <Link to="/admin/contact" className="menu-card">
-              <div className="menu-icon">📞</div>
-              <h3>Manage Contact</h3>
-              <p>Update contact information</p>
-            </Link>
-            <Link to="/admin/footer" className="menu-card">
-              <div className="menu-icon">📄</div>
-              <h3>Manage Footer</h3>
-              <p>Update footer content and links</p>
-            </Link>
-            <Link to="/admin/theme" className="menu-card">
-              <div className="menu-icon">🎨</div>
-              <h3>Manage Theme & Colors</h3>
-              <p>Customize website colors</p>
-            </Link>
+            {managementLinks.map((item) => (
+              <Link key={item.to} to={item.to} className="menu-card">
+                <div className="menu-icon">{item.icon}</div>
+                <h3>{item.title}</h3>
+                <p>{item.description}</p>
+              </Link>
+            ))}
           </div>
         </div>
       </div>
@@ -140,4 +107,3 @@ const AdminDashboard = () => {
 };
 
 export default AdminDashboard;
-

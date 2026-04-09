@@ -12,6 +12,7 @@ import Contact from './pages/Contact';
 import Gallery from './pages/Gallery';
 import AdminLogin from './pages/admin/AdminLogin';
 import AdminDashboard from './pages/admin/AdminDashboard';
+import AdminProfile from './pages/admin/AdminProfile';
 import ManageHome from './pages/admin/ManageHome';
 import ManagePoojas from './pages/admin/ManagePoojas';
 import ManageTokens from './pages/admin/ManageTokens';
@@ -43,6 +44,7 @@ function App() {
         {/* Admin Routes */}
         <Route path="/admin/login" element={<AdminLogin />} />
         <Route path="/admin" element={<PrivateRoute><AdminDashboard /></PrivateRoute>} />
+        <Route path="/admin/profile" element={<PrivateRoute><AdminProfile /></PrivateRoute>} />
         <Route path="/admin/home" element={<PrivateRoute><ManageHome /></PrivateRoute>} />
         <Route path="/admin/poojas" element={<PrivateRoute><ManagePoojas /></PrivateRoute>} />
         <Route path="/admin/tokens" element={<PrivateRoute><ManageTokens /></PrivateRoute>} />

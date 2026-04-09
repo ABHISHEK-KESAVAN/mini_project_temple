@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const HomeContent = require('../models/HomeContent');
 const auth = require('../middleware/auth');
+const requireAdmin = require('../middleware/requireAdmin');
 
 // Get home content (public)
 router.get('/', async (req, res) => {
@@ -18,7 +19,7 @@ router.get('/', async (req, res) => {
 });
 
 // Update home content (admin only)
-router.put('/', auth, async (req, res) => {
+router.put('/', auth, requireAdmin, async (req, res) => {
   try {
     let content = await HomeContent.findOne();
     if (!content) {

@@ -4,6 +4,7 @@ const ContactContent = require('../models/ContactContent');
 const MapContent = require('../models/MapContent');
 const FooterContent = require('../models/FooterContent');
 const auth = require('../middleware/auth');
+const requireAdmin = require('../middleware/requireAdmin');
 const { isValidEmail, badRequest } = require('../utils/validate');
 
 const SOCIAL_KEYS = ['facebook', 'twitter', 'instagram', 'youtube'];
@@ -51,7 +52,7 @@ router.get('/', async (req, res) => {
 });
 
 // Update contact content (admin only)
-router.put('/', auth, async (req, res) => {
+router.put('/', auth, requireAdmin, async (req, res) => {
   try {
     const errors = [];
     if (req.body.email !== undefined && !isValidEmail(req.body.email)) {
