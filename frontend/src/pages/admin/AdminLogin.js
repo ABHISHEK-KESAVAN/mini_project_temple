@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import api from '../../utils/api';
-import { setSession } from '../../utils/session';
+import { clearSession, setSession } from '../../utils/session';
 import './AdminLogin.css';
 
 const AdminLogin = () => {
@@ -14,13 +14,17 @@ const AdminLogin = () => {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
+  useEffect(() => {
+    clearSession();
+  }, []);
+
   const handleChange = (e) => {
     setFormData({
       ...formData,
       [e.target.name]: e.target.value
     });
     setError('');
-    setFieldErrors(prev => ({ ...prev, [e.target.name]: '' }));
+    setFieldErrors((prev) => ({ ...prev, [e.target.name]: '' }));
   };
 
   const validate = () => {
@@ -39,17 +43,23 @@ const AdminLogin = () => {
     setFieldErrors({});
 
     try {
-      const response = await api.post('/auth/login', formData);
+      const payload = {
+        username: formData.username.trim(),
+        password: formData.password
+      };
+      const response = await api.post('/auth/login', payload);
       setSession(response.data);
       navigate('/admin');
     } catch (err) {
       const data = err.response?.data;
       if (data?.errors?.length) {
         const errMap = {};
-        data.errors.forEach(e => { errMap[e.field] = e.message; });
+        data.errors.forEach((entry) => {
+          errMap[entry.field] = entry.message;
+        });
         setFieldErrors(errMap);
       }
-      setError(data?.message || 'Login failed. Please try again.');
+      setError(data?.message || err.message || 'Login failed. Please try again.');
     } finally {
       setLoading(false);
     }
@@ -63,24 +73,28 @@ const AdminLogin = () => {
           <form onSubmit={handleSubmit}>
             {error && <div className="error-message">{error}</div>}
             <div className="form-group">
-              <label>Username</label>
+              <label htmlFor="username">Username</label>
               <input
+                id="username"
                 type="text"
                 name="username"
                 value={formData.username}
                 onChange={handleChange}
                 autoFocus
+                autoComplete="username"
                 placeholder="Min 3 characters"
               />
               {fieldErrors.username && <span className="field-error">{fieldErrors.username}</span>}
             </div>
             <div className="form-group">
-              <label>Password</label>
+              <label htmlFor="password">Password</label>
               <input
+                id="password"
                 type="password"
                 name="password"
                 value={formData.password}
                 onChange={handleChange}
+                autoComplete="current-password"
                 placeholder="Min 6 characters"
               />
               {fieldErrors.password && <span className="field-error">{fieldErrors.password}</span>}
@@ -89,8 +103,12 @@ const AdminLogin = () => {
               {loading ? 'Logging in...' : 'Login'}
             </button>
           </form>
+          <div className="login-help">
+            <strong>Login not working?</strong>
+            <p>Make sure the backend is running, the app is pointing to the correct MongoDB database, and your admin password matches the active database.</p>
+          </div>
           <p className="back-link">
-            <a href="/">← Back to Home</a>
+            <a href="/">Back to Home</a>
           </p>
         </div>
       </div>
@@ -99,4 +117,3 @@ const AdminLogin = () => {
 };
 
 export default AdminLogin;
-

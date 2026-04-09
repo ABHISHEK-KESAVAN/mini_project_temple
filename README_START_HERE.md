@@ -51,7 +51,7 @@ Double-click **`start-all.bat`** to start both servers.
 
 ## 🔧 Configuration
 
-**Database**: `mini_project` (mongodb://localhost:27017/mini_project)
+**Database**: `temple_management` (mongodb://localhost:27017/temple_management)
 - Make sure MongoDB is running (check MongoDB Compass)
 - Database will be created automatically when you first use the app
 

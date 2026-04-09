@@ -13,7 +13,7 @@ const Theme = require('../models/Theme');
 const TokenSettings = require('../models/TokenSettings');
 
 async function main() {
-  const uri = process.env.MONGODB_URI || 'mongodb://localhost:27017/mini_project';
+  const uri = process.env.MONGODB_URI || 'mongodb://localhost:27017/temple_management';
   await mongoose.connect(uri);
 
   // Home – sample content; admin can edit or remove
