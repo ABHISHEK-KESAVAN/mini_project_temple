@@ -4,18 +4,23 @@ import api, { getUploadUrl } from '../utils/api';
 import './Navbar.css';
 
 /**
- * Public navbar: logo (from Admin) left, nav links right. No Admin link – admin uses /admin/login.
+ * Public navbar: logo (from Admin) left, nav links right. No Admin link - admin uses /admin/login.
  */
 const Navbar = () => {
   const location = useLocation();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [homeContent, setHomeContent] = useState(null);
+  const [logoLoadFailed, setLogoLoadFailed] = useState(false);
 
   useEffect(() => {
     if (!location.pathname.startsWith('/admin')) {
       api.get('/home').then((res) => setHomeContent(res.data)).catch(() => {});
     }
   }, [location.pathname]);
+
+  useEffect(() => {
+    setLogoLoadFailed(false);
+  }, [homeContent?.templeLogo]);
 
   const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
   const closeMenu = () => setIsMenuOpen(false);
@@ -27,16 +32,21 @@ const Navbar = () => {
     <nav className="navbar">
       <div className="navbar-container">
         <Link to="/" className="navbar-logo" onClick={closeMenu}>
-          {templeLogo ? (
+          {templeLogo && !logoLoadFailed ? (
             <>
-              <img src={getUploadUrl(templeLogo)} alt={templeName} className="navbar-logo-img" onError={(e) => { e.target.style.display = 'none'; e.target.nextSibling?.classList.remove('navbar-fallback-hidden'); }} />
-              <span className="navbar-logo-fallback navbar-fallback-hidden">🕉️ {templeName}</span>
+              <img
+                src={getUploadUrl(templeLogo)}
+                alt={templeName}
+                className="navbar-logo-img"
+                onError={() => setLogoLoadFailed(true)}
+              />
+              <span className="navbar-brand-name">{templeName}</span>
             </>
           ) : (
-            <span className="navbar-logo-fallback">🕉️ {templeName}</span>
+            <span className="navbar-logo-fallback">Temple {templeName}</span>
           )}
         </Link>
-        <button 
+        <button
           className={`navbar-toggle ${isMenuOpen ? 'active' : ''}`}
           onClick={toggleMenu}
           aria-label="Toggle menu"
@@ -79,4 +89,3 @@ const Navbar = () => {
 };
 
 export default Navbar;
-

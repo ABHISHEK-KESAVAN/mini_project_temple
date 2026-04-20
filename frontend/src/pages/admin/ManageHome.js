@@ -5,6 +5,33 @@ import ImageUpload from '../../components/ImageUpload';
 import Loader from '../../components/Loader';
 import './AdminPages.css';
 
+const normalizeUploadUrl = (value) => {
+  const raw = typeof value === 'string' ? value.trim() : '';
+  if (!raw) return '';
+  const normalized = raw.replace(/\\/g, '/');
+  if (normalized.startsWith('/uploads/')) return normalized;
+  if (normalized.startsWith('uploads/')) return `/${normalized}`;
+
+  // If only a filename is provided (e.g., image-123.jpg), assume it belongs to uploads.
+  if (/^[^/]+\.(jpg|jpeg|png|gif|webp)$/i.test(normalized)) {
+    return `/uploads/${normalized}`;
+  }
+
+  // Keep external URLs as-is. Only normalize URLs that point to /uploads files.
+  try {
+    const parsed = new URL(normalized);
+    if (!parsed.pathname.startsWith('/uploads/')) return raw;
+    return `${parsed.pathname}${parsed.search || ''}${parsed.hash || ''}`;
+  } catch (error) {
+    // Handle absolute-like values that are not valid URL instances.
+    const uploadPathIndex = normalized.indexOf('/uploads/');
+    if (uploadPathIndex !== -1) {
+      return normalized.slice(uploadPathIndex);
+    }
+    return raw;
+  }
+};
+
 const ManageHome = () => {
   const [content, setContent] = useState({
     templeName: '',
@@ -36,11 +63,21 @@ const ManageHome = () => {
       const data = response.data;
       const heroImages =
         Array.isArray(data.heroImages) && data.heroImages.length
-          ? data.heroImages.filter(Boolean)
+          ? data.heroImages.filter(Boolean).map(normalizeUploadUrl)
           : data.heroImage
-            ? [data.heroImage]
+            ? [normalizeUploadUrl(data.heroImage)]
             : [];
-      setContent({ ...data, heroImages });
+      setContent({
+        ...data,
+        templeLogo: normalizeUploadUrl(data.templeLogo || ''),
+        aboutImage: normalizeUploadUrl(data.aboutImage || ''),
+        heroImages,
+        heroImage: normalizeUploadUrl(data.heroImage || ''),
+        banners: (data.banners || []).map((banner) => ({
+          ...banner,
+          image: normalizeUploadUrl(banner?.image || '')
+        }))
+      });
     } catch (error) {
       console.error('Error fetching content:', error);
     } finally {
@@ -144,8 +181,14 @@ const ManageHome = () => {
       const heroImages = (content.heroImages || []).map((u) => (u || '').trim()).filter(Boolean);
       const payload = {
         ...content,
-        heroImages,
-        heroImage: heroImages[0] || ''
+        templeLogo: normalizeUploadUrl(content.templeLogo),
+        aboutImage: normalizeUploadUrl(content.aboutImage),
+        heroImages: heroImages.map(normalizeUploadUrl),
+        heroImage: normalizeUploadUrl(heroImages[0] || ''),
+        banners: (content.banners || []).map((banner) => ({
+          ...banner,
+          image: normalizeUploadUrl(banner?.image || '')
+        }))
       };
       await api.put('/home', payload);
       setMessage('Home page updated successfully!');

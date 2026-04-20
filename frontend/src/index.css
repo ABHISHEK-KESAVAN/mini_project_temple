@@ -32,6 +32,40 @@ body {
   color: var(--text-color, #333333);
 }
 
+/* Prevent Google Translate banner/frame from creating white spacer gaps */
+body {
+  top: 0 !important;
+}
+
+.goog-te-banner-frame.skiptranslate,
+iframe.goog-te-banner-frame {
+  display: none !important;
+  visibility: hidden !important;
+}
+
+/* Some Google Translate wrappers still inject a full-width white strip.
+   Collapse wrapper flow and pin the gadget to bottom-left. */
+body > .skiptranslate {
+  height: 0 !important;
+  line-height: 0 !important;
+  overflow: visible !important;
+  background: transparent !important;
+}
+
+body > .skiptranslate .goog-te-gadget {
+  position: fixed !important;
+  left: 18px !important;
+  bottom: 18px !important;
+  top: auto !important;
+  right: auto !important;
+  z-index: 2147483647 !important;
+  line-height: normal !important;
+}
+
+body > .skiptranslate .goog-te-gadget > span {
+  display: none !important;
+}
+
 /* Theme cards: elements that get card-style and card-shape from admin */
 .theme-card,
 .home-block,

@@ -41,8 +41,12 @@
   white-space: nowrap;
 }
 
-.navbar-fallback-hidden {
-  display: none;
+.navbar-brand-name {
+  white-space: nowrap;
+  line-height: 1.2;
+  max-width: 280px;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .navbar-toggle {
@@ -158,6 +162,10 @@
 
   .navbar-logo {
     font-size: 1.25rem;
+  }
+
+  .navbar-brand-name {
+    max-width: 140px;
   }
 
   .navbar-menu {

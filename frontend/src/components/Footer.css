@@ -2,7 +2,7 @@
   background-color: var(--navbar-background, #1a1a1a);
   color: #fff;
   padding: 2rem 0 1rem;
-  margin-top: auto;
+  margin-top: 0;
 }
 
 .footer-container {

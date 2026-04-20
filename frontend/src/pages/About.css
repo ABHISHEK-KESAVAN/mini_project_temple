@@ -6,9 +6,17 @@
 
 /* ---------- Base ---------- */
 .about-page {
+  --about-bg-main: #0d0d0d;
+  --about-bg-surface: linear-gradient(135deg, rgba(26,20,8,0.92) 0%, rgba(18,14,4,0.95) 100%);
+  --about-text: var(--text-color, #e8d5a3);
+  --about-text-muted: rgba(232, 213, 163, 0.82);
+  --about-gold: var(--accent-color, var(--primary-color, #d4af37));
+  --about-gold-strong: var(--accent-color, #f5d77a);
+  --about-border: rgba(212, 175, 55, 0.22);
+
   min-height: 100vh;
-  background: var(--background-color, #0d0d0d);
-  color: var(--text-color, #e8d5a3);
+  background: var(--background-color, var(--about-bg-main));
+  color: var(--about-text);
   font-family: 'Poppins', sans-serif;
   overflow-x: hidden;
 }
@@ -434,6 +442,61 @@
   color: rgba(232, 213, 163, 0.75);
   font-size: 0.95rem;
   line-height: 1.7;
+}
+
+/* ---------- Dynamic Theme Bridge ---------- */
+.about-hero-title,
+.about-section h2,
+.timing-card h3,
+.festival-card h3 {
+  color: var(--about-gold-strong);
+}
+
+.about-hero-subtitle,
+.about-section p,
+.timing-card p,
+.rules-list li,
+.festival-card p,
+.history-image-wrap-error::before {
+  color: var(--about-text-muted);
+}
+
+.about-hero-divider,
+.about-section::before,
+.timing-card::before,
+.festival-card::before,
+.about-section h2::after {
+  background: linear-gradient(90deg, transparent, var(--about-gold), transparent);
+}
+
+.gold-divider {
+  background: linear-gradient(90deg, transparent 0%, var(--about-gold) 20%, var(--about-gold-strong) 50%, var(--about-gold) 80%, transparent 100%);
+}
+
+.about-section,
+.festival-card {
+  background: var(--about-bg-surface);
+  border-color: var(--about-border);
+}
+
+.timing-card {
+  background: linear-gradient(145deg, rgba(40,30,8,0.9) 0%, rgba(28,20,5,0.95) 100%);
+  border-color: rgba(212, 175, 55, 0.3);
+}
+
+.history-image-wrap,
+.history-deco-panel {
+  border-color: rgba(212, 175, 55, 0.28);
+}
+
+.rules-list li {
+  background: rgba(212, 175, 55, 0.06);
+  border-left-color: var(--about-gold);
+}
+
+.rules-list li::before,
+.festival-date {
+  color: var(--about-gold);
 }
 
 /* ---------- Keyframes ---------- */

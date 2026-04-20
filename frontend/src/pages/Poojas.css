@@ -1,26 +1,35 @@
 .poojas-page {
+  --pooja-bg-main: #120d05;
+  --pooja-bg-surface: linear-gradient(145deg, rgba(32, 22, 7, 0.95), rgba(18, 13, 5, 0.98));
+  --pooja-border: rgba(212, 175, 55, 0.2);
+  --pooja-text: var(--text-color, #ead6a5);
+  --pooja-text-muted: rgba(234, 214, 165, 0.8);
+  --pooja-gold: var(--accent-color, var(--primary-color, #d4af37));
+
   min-height: 100vh;
   padding: 2rem 0;
-  background-color: var(--background-color, #f5f5f5);
-  color: var(--text-color, #333);
+  background:
+    radial-gradient(circle at top, rgba(212, 175, 55, 0.1), transparent 32%),
+    linear-gradient(180deg, var(--pooja-bg-main) 0%, #0b0804 100%);
+  color: var(--pooja-text);
 }
 
 .selected-summary {
-  background: white;
+  background: var(--pooja-bg-surface);
   padding: 2rem;
   margin-bottom: 2rem;
-  border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  border-radius: 16px;
+  border: 1px solid var(--pooja-border);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.3);
   position: sticky;
   top: 80px;
   z-index: 100;
-  /* Always use dark text — this is a white card, never themed */
-  color: #333333;
+  color: var(--pooja-text);
 }
 
 .selected-summary h3 {
   margin-bottom: 1rem;
-  color: #333;
+  color: var(--pooja-gold);
 }
 
 .selected-list {
@@ -32,19 +41,21 @@
   justify-content: space-between;
   padding: 0.75rem;
   margin-bottom: 0.5rem;
-  background: #f0f0f0;
-  border-radius: 4px;
-  color: #333333;
+  background: rgba(212, 175, 55, 0.08);
+  border: 1px solid rgba(212, 175, 55, 0.14);
+  border-radius: 8px;
+  color: var(--pooja-text-muted);
 }
 
 .total-amount {
   padding: 1rem;
-  background: #e8f5e9;
-  border-radius: 4px;
+  background: rgba(212, 175, 55, 0.14);
+  border: 1px solid rgba(212, 175, 55, 0.2);
+  border-radius: 10px;
   margin-bottom: 1rem;
   text-align: center;
   font-size: 1.2rem;
-  color: #2e7d32;
+  color: var(--pooja-gold);
 }
 
 .poojas-grid {
@@ -54,20 +65,22 @@
 }
 
 .pooja-card {
-  background: white;
-  border-radius: 8px;
+  background: var(--pooja-bg-surface);
+  border-radius: 14px;
+  border: 1px solid var(--pooja-border);
   overflow: hidden;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.28);
   transition: transform 0.3s, box-shadow 0.3s;
 }
 
 .pooja-card:hover {
   transform: translateY(-5px);
-  box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+  box-shadow: 0 20px 44px rgba(0, 0, 0, 0.35);
 }
 
 .pooja-card.selected {
-  border: 3px solid #4CAF50;
+  border: 2px solid var(--pooja-gold);
+  box-shadow: 0 0 0 1px rgba(212, 175, 55, 0.35), 0 20px 44px rgba(0, 0, 0, 0.35);
 }
 
 .pooja-image {
@@ -81,15 +94,14 @@
 }
 
 .pooja-content h3 {
-  color: inherit;
+  color: var(--pooja-gold);
   margin-bottom: 0.5rem;
   font-size: 1.3rem;
   font-weight: bold;
 }
 
 .pooja-description {
-  color: inherit;
-  opacity: 0.85;
+  color: var(--pooja-text-muted);
   margin-bottom: 1rem;
   line-height: 1.6;
 }
@@ -103,18 +115,19 @@
   justify-content: space-between;
   margin-bottom: 0.5rem;
   padding: 0.5rem;
-  background: #f9f9f9;
-  border-radius: 4px;
+  background: rgba(212, 175, 55, 0.06);
+  border: 1px solid rgba(212, 175, 55, 0.12);
+  border-radius: 8px;
 }
 
 .label {
   font-weight: bold;
-  color: #666;
+  color: var(--pooja-text-muted);
 }
 
 .price {
   font-weight: bold;
-  color: #4CAF50;
+  color: var(--pooja-gold);
   font-size: 1.1rem;
 }
 
@@ -172,4 +185,3 @@
     height: 150px;
   }
 }
-

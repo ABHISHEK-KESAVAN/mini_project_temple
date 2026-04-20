@@ -16,6 +16,7 @@ const Home = () => {
   const [loading, setLoading] = useState(true);
   const [slideIndex, setSlideIndex] = useState(0);
   const [bgOpacity, setBgOpacity] = useState(1);
+  const [resolvedHeroUrls, setResolvedHeroUrls] = useState([DEFAULT_HERO_FALLBACK]);
   const pendingAdvance = useRef(false);
 
   const heroUrls = useMemo(() => {
@@ -37,27 +38,60 @@ const Home = () => {
   }, [content]);
 
   const heroUrlsKey = heroUrls.join('|');
+  const resolvedHeroUrlsKey = resolvedHeroUrls.join('|');
+
+  useEffect(() => {
+    let isActive = true;
+    const candidates = heroUrls
+      .map((url) => getUploadUrl(url))
+      .filter((url) => Boolean(url));
+
+    if (candidates.length === 0) {
+      setResolvedHeroUrls([DEFAULT_HERO_FALLBACK]);
+      return undefined;
+    }
+
+    Promise.all(
+      candidates.map(
+        (url) =>
+          new Promise((resolve) => {
+            const image = new Image();
+            image.onload = () => resolve({ url, ok: true });
+            image.onerror = () => resolve({ url, ok: false });
+            image.src = url;
+          })
+      )
+    ).then((results) => {
+      if (!isActive) return;
+      const validUrls = results.filter((result) => result.ok).map((result) => result.url);
+      setResolvedHeroUrls(validUrls.length ? validUrls : [DEFAULT_HERO_FALLBACK]);
+    });
+
+    return () => {
+      isActive = false;
+    };
+  }, [heroUrlsKey]);
 
   useEffect(() => {
     setSlideIndex(0);
     setBgOpacity(1);
     pendingAdvance.current = false;
-  }, [heroUrlsKey]);
+  }, [resolvedHeroUrlsKey]);
 
   useEffect(() => {
-    if (heroUrls.length <= 1) return undefined;
+    if (resolvedHeroUrls.length <= 1) return undefined;
     const id = setInterval(() => {
       pendingAdvance.current = true;
       setBgOpacity(0);
     }, SLIDE_INTERVAL_MS);
     return () => clearInterval(id);
-  }, [heroUrlsKey]);
+  }, [resolvedHeroUrlsKey]);
 
   const handleHeroBgTransitionEnd = (e) => {
     if (e.propertyName !== 'opacity') return;
     if (!pendingAdvance.current) return;
     pendingAdvance.current = false;
-    setSlideIndex((i) => (i + 1) % heroUrls.length);
+    setSlideIndex((i) => (i + 1) % resolvedHeroUrls.length);
     requestAnimationFrame(() => setBgOpacity(1));
   };
 
@@ -84,7 +118,7 @@ const Home = () => {
     return <Loader label="Preparing the sacred space…" />;
   }
 
-  const heroBgUrl = heroUrls[slideIndex] ? getUploadUrl(heroUrls[slideIndex]) : '';
+  const heroBgUrl = resolvedHeroUrls[slideIndex] || DEFAULT_HERO_FALLBACK;
   const heroTitle = content?.heroWelcomeTitle || content?.templeName || 'Welcome';
   const welcomeMessage = content?.welcomeMessage || 'May the divine light bring peace, prosperity, and blessings to you and your family.';
   const heroCtaText = content?.heroCtaText || 'View Poojas';
