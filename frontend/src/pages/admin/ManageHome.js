@@ -424,7 +424,7 @@ const ManageHome = () => {
             </button>
           </div>
 
-          <div className="form-section">
+          {false && <div className="form-section">
             <h2>Highlight Cards</h2>
             {content.highlightCards.map((card, index) => (
               <div key={index} className="array-item">
@@ -470,7 +470,7 @@ const ManageHome = () => {
             <button type="button" onClick={addCard} className="btn btn-secondary">
               Add Card
             </button>
-          </div>
+          </div>}
 
           <button type="submit" className="btn btn-primary" disabled={saving}>
             {saving ? 'Saving...' : 'Save Changes'}
